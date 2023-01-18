@@ -49,6 +49,10 @@ public class HolonomicOdometry {
         this.offsetL = offsetL;
         this.offsetR = offsetR;
         this.offsetH = offsetH;
+
+        this.lastL = encoderL.getCurrentPosition() / convertL.tickPerInch;
+        this.lastR = encoderR.getCurrentPosition() / convertR.tickPerInch;
+        this.lastH = encoderH.getCurrentPosition() / convertH.tickPerInch;
     }
 
     public void update() {
@@ -57,8 +61,12 @@ public class HolonomicOdometry {
         double newR = encoderR.getCurrentPosition() / convertR.tickPerInch;
         double newH = encoderH.getCurrentPosition() / convertH.tickPerInch;
 
+        double diffL = newL - lastL;
+        double diffR = newR - lastR;
+        double diffH = newH - lastH;
+
         double[] displace = calcDisplace(
-                newL - lastL, newR - lastR, newH - lastH,
+                diffL, diffR, diffH,
                 VectorRotate.rotY(offsetL, 0, -Math.PI / 2),
                 VectorRotate.rotY(offsetR, 0, -Math.PI / 2),
                 VectorRotate.rotX(0, offsetH, -Math.PI / 2));
@@ -76,9 +84,9 @@ public class HolonomicOdometry {
         lastR = newR;
         lastH = newH;
 
-        tele.addData("encoder l", newL);
-        tele.addData("encoder r", newR);
-        tele.addData("encoder h", newH);
+        tele.addData("encoder l", diffL);
+        tele.addData("encoder r", diffR);
+        tele.addData("encoder h", diffH);
         tele.addData("current x", currX);
         tele.addData("current y", currY);
         tele.addData("current rot", currRot);
