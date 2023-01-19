@@ -66,7 +66,9 @@ public class HolonomicOdometry {
         double diffH = newH - lastH;
 
         double[] displace = calcDisplace(
-                diffL, diffR, diffH,
+                VectorRotate.rotX(0, diffL, -Math.PI / 2),
+                VectorRotate.rotX(0, diffR, -Math.PI / 2),
+                VectorRotate.rotY(diffH, 0, -Math.PI / 2),
                 VectorRotate.rotY(offsetL, 0, -Math.PI / 2),
                 VectorRotate.rotY(offsetR, 0, -Math.PI / 2),
                 VectorRotate.rotX(0, offsetH, -Math.PI / 2));
@@ -104,10 +106,22 @@ public class HolonomicOdometry {
 
         double J = Math.sin(theta);
         double K = 1 - Math.cos(theta);
-        double T = theta / 2 / K / M;
 
-        double Fx = T * (J * P + K * Q);
-        double Fy = T * (K * P - J * Q);
+        double Fx;
+        double Fy;
+
+        if (K == 0) {
+
+            Fx = (ax + bx) / 2;
+            Fy = cy;
+
+        } else {
+
+            double T = theta / 2 / K / M;
+
+            Fx = T * (J * P + K * Q);
+            Fy = T * (K * P - J * Q);
+        }
 
         return new double[] {Fx, Fy, theta};
     }

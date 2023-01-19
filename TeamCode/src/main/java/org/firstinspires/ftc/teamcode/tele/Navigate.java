@@ -19,12 +19,20 @@ public class Navigate extends OpMode {
     @Override
     public void loop() {
 
-        bot.nav.drive.run(gamepad1.left_stick_x, -gamepad1.left_stick_y, -gamepad1.right_stick_x);
-        bot.nav.odometry.update();
+        if (gamepad1.a) {
 
-        telemetry.addData("L", bot.nav.odometry.lastL);
-        telemetry.addData("R", bot.nav.odometry.lastR);
-        telemetry.addData("H", bot.nav.odometry.lastH);
+            bot.nav.goTo(0, 0, 0);
+
+        } else {
+
+            bot.nav.drive.run(
+                    gamepad1.left_stick_x * 0.5,
+                    -gamepad1.left_stick_y * 0.5,
+                    -gamepad1.right_stick_x * 0.25,
+                    bot.nav.odometry.currRot);
+        }
+
+        bot.nav.odometry.update();
 
         telemetry.update();
     }

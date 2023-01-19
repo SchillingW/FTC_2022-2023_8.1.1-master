@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.util.InterpolateClamp;
 import org.firstinspires.ftc.teamcode.util.RotateConvert;
 
 public class Volta {
@@ -43,6 +44,14 @@ public class Volta {
                 -1.496,
                 tele);
 
-        nav = new HolonomicNavigation(drive, odometry, tele);
+        InterpolateClamp approach = new InterpolateClamp(
+                6, 24,
+                0.25, 0.5);
+
+        nav = new HolonomicNavigation(
+                drive, odometry, approach,
+                0.25, Math.PI / 192,
+                1, 1, 48 / Math.PI,
+                tele);
     }
 }
