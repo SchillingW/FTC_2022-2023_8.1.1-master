@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.hardware.Claw;
-import org.firstinspires.ftc.teamcode.hardware.DriveSlideClaw;
+import org.firstinspires.ftc.teamcode.hardware.DriveSlide;
 import org.firstinspires.ftc.teamcode.hardware.HolonomicDrive;
 import org.firstinspires.ftc.teamcode.hardware.HolonomicNavigation;
 import org.firstinspires.ftc.teamcode.hardware.HolonomicOdometry;
@@ -14,11 +14,13 @@ import org.firstinspires.ftc.teamcode.hardware.LinearSlide;
 import org.firstinspires.ftc.teamcode.util.InterpolateClamp;
 import org.firstinspires.ftc.teamcode.util.RotateConvert;
 
-public class Volta extends DriveSlideClaw {
+public class Volta extends DriveSlide {
+
+    public Claw claw;
 
     public Volta(HardwareMap map, Telemetry tele) {
 
-        super(null, null, null, tele);
+        super(null, null, tele);
 
 
 
