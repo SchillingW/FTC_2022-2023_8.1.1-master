@@ -1,21 +1,24 @@
-package org.firstinspires.ftc.teamcode.hardware;
+package org.firstinspires.ftc.teamcode.bot;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.hardware.DriveSlide;
+import org.firstinspires.ftc.teamcode.hardware.HolonomicDrive;
+import org.firstinspires.ftc.teamcode.hardware.HolonomicNavigation;
+import org.firstinspires.ftc.teamcode.hardware.HolonomicOdometry;
+import org.firstinspires.ftc.teamcode.hardware.LinearSlide;
 import org.firstinspires.ftc.teamcode.util.InterpolateClamp;
 import org.firstinspires.ftc.teamcode.util.RotateConvert;
 
-public class Volta {
-
-    public Telemetry tele;
-
-    public HolonomicNavigation nav;
+public class Volta extends DriveSlide {
 
     public Volta(HardwareMap map, Telemetry tele) {
 
-        this.tele = tele;
+        super(null, null, tele);
+
+
 
         DcMotor motorFL = map.get(DcMotor.class, "motorFL");
         DcMotor motorFR = map.get(DcMotor.class, "motorFR");
@@ -53,5 +56,27 @@ public class Volta {
                 0.25, Math.PI / 192,
                 1, 1, 48 / Math.PI,
                 tele);
+        subsystem.set(0, nav);
+
+
+
+        DcMotor motorSlide = map.get(DcMotor.class, "motorSlide");
+
+        RotateConvert convertSlide = new RotateConvert(1, 1);
+
+        InterpolateClamp approachBelow = new InterpolateClamp(
+                3, 12,
+                0.5, 1);
+
+        InterpolateClamp approachAbove = new InterpolateClamp(
+                6, 12,
+                0.25, 0.5);
+
+        slide = new LinearSlide(
+                motorSlide, convertSlide,
+                approachBelow, approachAbove,
+                0.25, 1,
+                tele);
+        subsystem.set(1, slide);
     }
 }

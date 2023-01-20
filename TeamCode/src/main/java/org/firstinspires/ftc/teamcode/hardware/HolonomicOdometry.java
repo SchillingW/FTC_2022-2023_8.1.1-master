@@ -55,7 +55,7 @@ public class HolonomicOdometry {
         this.lastH = encoderH.getCurrentPosition() / convertH.tickPerInch;
     }
 
-    public void update() {
+    public void track() {
 
         double newL = encoderL.getCurrentPosition() / convertL.tickPerInch;
         double newR = encoderR.getCurrentPosition() / convertR.tickPerInch;

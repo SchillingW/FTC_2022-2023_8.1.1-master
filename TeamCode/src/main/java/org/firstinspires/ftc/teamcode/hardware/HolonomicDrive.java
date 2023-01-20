@@ -63,4 +63,9 @@ public class HolonomicDrive {
 
         run(VectorRotate.rotX(x, y, -currRot), VectorRotate.rotY(x, y, -currRot), rot);
     }
+
+    public void stop() {
+
+        run(0, 0, 0);
+    }
 }

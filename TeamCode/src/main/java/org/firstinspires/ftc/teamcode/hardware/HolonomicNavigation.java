@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.hardware;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.util.InterpolateClamp;
 
-public class HolonomicNavigation {
+public class HolonomicNavigation extends AutonomousSystem {
 
     public Telemetry tele;
 
@@ -18,6 +18,10 @@ public class HolonomicNavigation {
     public double linearSpeedFactor;
     public double turnSpeedFactor;
     public double turnToLinearFactor;
+
+    public double targetX;
+    public double targetY;
+    public double targetRot;
 
     public HolonomicNavigation(HolonomicDrive drive, HolonomicOdometry odometry,
                                InterpolateClamp approach,
@@ -41,11 +45,16 @@ public class HolonomicNavigation {
         this.turnToLinearFactor = turnToLinearFactor;
     }
 
-    public void goTo(double x, double y, double rot) {
+    @Override
+    public void update() {
 
-        double diffX = x - odometry.currX;
-        double diffY = y - odometry.currY;
-        double diffRot = (rot - odometry.currRot) * turnToLinearFactor;
+        super.update();
+
+        track();
+
+        double diffX = targetX - odometry.currX;
+        double diffY = targetY - odometry.currY;
+        double diffRot = (targetRot - odometry.currRot) * turnToLinearFactor;
 
         double currentMagnitude = Math.sqrt(diffX * diffX + diffY * diffY + diffRot * diffRot);
         double targetMagnitude = approach.perform(currentMagnitude);
@@ -59,11 +68,32 @@ public class HolonomicNavigation {
                 diffRot * turnSpeedFactor, odometry.currRot);
     }
 
-    public boolean isDone(double x, double y, double rot) {
+    @Override
+    public boolean isDone() {
+
+        boolean done = super.isDone();
 
         return
-                Math.abs(x - odometry.currX) <= errorMarginLin &&
-                Math.abs(y - odometry.currY) <= errorMarginLin &&
-                Math.abs(rot - odometry.currRot) <= errorMarginRot;
+                done &&
+                Math.abs(targetX - odometry.currX) <= errorMarginLin &&
+                Math.abs(targetY - odometry.currY) <= errorMarginLin &&
+                Math.abs(targetRot - odometry.currRot) <= errorMarginRot;
+    }
+
+    public void setTarget(double x, double y, double rot) {
+
+        targetX = x;
+        targetY = y;
+        targetRot = rot;
+    }
+
+    public void track() {
+
+        odometry.track();
+    }
+
+    public void stop() {
+
+        drive.stop();
     }
 }

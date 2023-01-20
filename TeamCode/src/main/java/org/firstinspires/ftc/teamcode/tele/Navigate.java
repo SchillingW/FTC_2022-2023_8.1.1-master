@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.tele;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.hardware.Volta;
+import org.firstinspires.ftc.teamcode.bot.Volta;
 
 @TeleOp(name="Navigate", group="LeaguePrep")
 public class Navigate extends OpMode {
@@ -21,7 +21,7 @@ public class Navigate extends OpMode {
 
         if (gamepad1.a) {
 
-            bot.nav.goTo(0, 0, 0);
+            bot.update();
 
         } else {
 
@@ -30,10 +30,18 @@ public class Navigate extends OpMode {
                     -gamepad1.left_stick_y * 0.5,
                     -gamepad1.right_stick_x * 0.25,
                     bot.nav.odometry.currRot);
+
+            bot.slide.run(-gamepad2.left_stick_y * 0.5);
+
+            bot.track();
         }
 
-        bot.nav.odometry.update();
-
         telemetry.update();
+    }
+
+    @Override
+    public void stop() {
+
+        bot.stop();
     }
 }
