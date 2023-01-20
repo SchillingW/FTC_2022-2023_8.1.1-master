@@ -20,29 +20,37 @@ public class ParallelMovement extends OpMode {
     public void loop() {
 
         if (bot.next(bot.nav)) {
-            bot.nav.setTarget(48, 0, Math.PI);
+            bot.nav.setTarget(24, 0, Math.PI);
+            bot.claw.open();
         }
 
         if (bot.next(bot.nav)) {
-            bot.nav.setTarget(48, 48, 0);
+            bot.nav.setTarget(24, 24, 0);
         }
 
         if (bot.next(bot.slide)) {
-            bot.slide.setTarget(96);
+            bot.slide.setTarget(36);
+            bot.claw.close();
         }
 
         if (bot.next(bot.slide)) {
+            bot.slide.setTarget(12);
+            bot.claw.open();
+        }
+
+        if (bot.next()) {
+            bot.nav.setTarget(-24, -24, 0);
             bot.slide.setTarget(24);
         }
 
         if (bot.next()) {
-            bot.nav.setTarget(-48, -48, 0);
-            bot.slide.setTarget(48);
+            bot.nav.setTarget(-12, -12, 0);
+            bot.slide.setTarget(0);
+            bot.claw.close();
         }
 
         if (bot.next()) {
-            bot.nav.setTarget(0, 0, 0);
-            bot.slide.setTarget(0);
+            requestOpModeStop();
         }
 
         bot.update();

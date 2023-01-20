@@ -52,20 +52,27 @@ public class HolonomicNavigation extends AutonomousSystem {
 
         track();
 
-        double diffX = targetX - odometry.currX;
-        double diffY = targetY - odometry.currY;
-        double diffRot = (targetRot - odometry.currRot) * turnToLinearFactor;
+        if (isDone()) {
 
-        double currentMagnitude = Math.sqrt(diffX * diffX + diffY * diffY + diffRot * diffRot);
-        double targetMagnitude = approach.perform(currentMagnitude);
+            stop();
 
-        diffX *= targetMagnitude / currentMagnitude;
-        diffY *= targetMagnitude / currentMagnitude;
-        diffRot *= targetMagnitude / currentMagnitude;
+        } else {
 
-        drive.run(
-                diffX * linearSpeedFactor, diffY * linearSpeedFactor,
-                diffRot * turnSpeedFactor, odometry.currRot);
+            double diffX = targetX - odometry.currX;
+            double diffY = targetY - odometry.currY;
+            double diffRot = (targetRot - odometry.currRot) * turnToLinearFactor;
+
+            double currentMagnitude = Math.sqrt(diffX * diffX + diffY * diffY + diffRot * diffRot);
+            double targetMagnitude = approach.perform(currentMagnitude);
+
+            diffX *= targetMagnitude / currentMagnitude;
+            diffY *= targetMagnitude / currentMagnitude;
+            diffRot *= targetMagnitude / currentMagnitude;
+
+            drive.run(
+                    diffX * linearSpeedFactor, diffY * linearSpeedFactor,
+                    diffRot * turnSpeedFactor, odometry.currRot);
+        }
     }
 
     @Override

@@ -18,13 +18,16 @@ public class LinearSlide extends AutonomousSystem {
 
     public double errorMargin;
     public double speedFactor;
+    public double holdSpeed;
+
     public double target;
     public double curr;
+    public double start;
 
     public LinearSlide(
             DcMotor motor, RotateConvert convert,
             InterpolateClamp approachBelow, InterpolateClamp approachAbove,
-            double errorMargin, double speedFactor,
+            double errorMargin, double speedFactor, double holdSpeed,
             Telemetry tele) {
 
         this.tele = tele;
@@ -37,6 +40,9 @@ public class LinearSlide extends AutonomousSystem {
 
         this.errorMargin = errorMargin;
         this.speedFactor = speedFactor;
+        this.holdSpeed = holdSpeed;
+
+        this.start = motor.getCurrentPosition() / convert.tickPerInch;
     }
 
     @Override
@@ -46,17 +52,24 @@ public class LinearSlide extends AutonomousSystem {
 
         track();
 
-        double diff = target - curr;
+        if (isDone()) {
 
-        double currentMagnitude = Math.abs(diff);
+            run(holdSpeed);
 
-        double targetMagnitude = diff > 0 ?
-                approachBelow.perform(currentMagnitude) :
-                approachAbove.perform(currentMagnitude);
+        } else {
 
-        diff *= targetMagnitude / currentMagnitude;
+            double diff = target - curr;
 
-        run(diff * speedFactor);
+            double currentMagnitude = Math.abs(diff);
+
+            double targetMagnitude = diff > 0 ?
+                    approachBelow.perform(currentMagnitude) :
+                    approachAbove.perform(currentMagnitude);
+
+            diff *= targetMagnitude / currentMagnitude;
+
+            run(diff * speedFactor);
+        }
     }
 
     @Override
@@ -80,7 +93,7 @@ public class LinearSlide extends AutonomousSystem {
 
     public void track() {
 
-        curr = motor.getCurrentPosition() / convert.tickPerInch;
+        curr = motor.getCurrentPosition() / convert.tickPerInch - start;
         tele.addData("current slide", curr);
     }
 

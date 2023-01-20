@@ -2,9 +2,11 @@ package org.firstinspires.ftc.teamcode.bot;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.hardware.DriveSlide;
+import org.firstinspires.ftc.teamcode.hardware.Claw;
+import org.firstinspires.ftc.teamcode.hardware.DriveSlideClaw;
 import org.firstinspires.ftc.teamcode.hardware.HolonomicDrive;
 import org.firstinspires.ftc.teamcode.hardware.HolonomicNavigation;
 import org.firstinspires.ftc.teamcode.hardware.HolonomicOdometry;
@@ -12,11 +14,11 @@ import org.firstinspires.ftc.teamcode.hardware.LinearSlide;
 import org.firstinspires.ftc.teamcode.util.InterpolateClamp;
 import org.firstinspires.ftc.teamcode.util.RotateConvert;
 
-public class Volta extends DriveSlide {
+public class Volta extends DriveSlideClaw {
 
     public Volta(HardwareMap map, Telemetry tele) {
 
-        super(null, null, tele);
+        super(null, null, null, tele);
 
 
 
@@ -53,7 +55,7 @@ public class Volta extends DriveSlide {
 
         nav = new HolonomicNavigation(
                 drive, odometry, approach,
-                0.25, Math.PI / 192,
+                0.5, Math.PI / 96,
                 1, 1, 48 / Math.PI,
                 tele);
         subsystem.set(0, nav);
@@ -62,10 +64,11 @@ public class Volta extends DriveSlide {
 
         DcMotor motorSlide = map.get(DcMotor.class, "motorSlide");
 
-        RotateConvert convertSlide = new RotateConvert(1, 1);
+        // motorSlide records 2.69rot over a 24in displacement
+        RotateConvert convertSlide = new RotateConvert(756, 8.922, -1);
 
         InterpolateClamp approachBelow = new InterpolateClamp(
-                3, 12,
+                3, 6,
                 0.5, 1);
 
         InterpolateClamp approachAbove = new InterpolateClamp(
@@ -75,8 +78,14 @@ public class Volta extends DriveSlide {
         slide = new LinearSlide(
                 motorSlide, convertSlide,
                 approachBelow, approachAbove,
-                0.25, 1,
+                0.25, 1, 0.125,
                 tele);
         subsystem.set(1, slide);
+
+
+
+        Servo servoClaw = map.get(Servo.class, "servoClaw");
+
+        claw = new Claw(servoClaw, 0, 0.5, tele);
     }
 }

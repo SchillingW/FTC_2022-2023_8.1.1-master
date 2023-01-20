@@ -19,11 +19,13 @@ public class Navigate extends OpMode {
     @Override
     public void loop() {
 
-        if (gamepad1.a) {
+        if (gamepad1.a || gamepad2.a) {
 
             bot.update();
 
         } else {
+
+            bot.track();
 
             bot.nav.drive.run(
                     gamepad1.left_stick_x * 0.5,
@@ -32,8 +34,16 @@ public class Navigate extends OpMode {
                     bot.nav.odometry.currRot);
 
             bot.slide.run(-gamepad2.left_stick_y * 0.5);
+        }
 
-            bot.track();
+        if (gamepad2.left_bumper) {
+
+            bot.claw.close();
+        }
+
+        if (gamepad2.right_bumper) {
+
+            bot.claw.open();
         }
 
         telemetry.update();
