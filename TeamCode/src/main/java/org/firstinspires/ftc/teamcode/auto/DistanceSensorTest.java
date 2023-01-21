@@ -32,7 +32,12 @@ public class DistanceSensorTest extends OpMode {
             bot.nav.setTarget(24, 0, Math.PI);
             lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
         }*/
-        if (distance.getDistance(DistanceUnit.INCH) >= 1.5) {
+        telemetry.addData("distance", distance.getDistance(DistanceUnit.INCH));
+        lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.HOT_PINK);
+        telemetry.update();
+
+
+        /*if (distance.getDistance(DistanceUnit.INCH) ) {
             bot.nav.setTarget(24, 0, Math.PI);
             lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
             bot.slide.setTarget(bot.restSlide);
@@ -40,7 +45,7 @@ public class DistanceSensorTest extends OpMode {
         else{
             bot.claw.open();
             lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.HOT_PINK);
-        }
+        }*/
 
         bot.update();
         telemetry.update();
