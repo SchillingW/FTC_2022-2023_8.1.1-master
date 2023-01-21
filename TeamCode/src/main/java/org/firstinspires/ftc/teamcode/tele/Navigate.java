@@ -13,7 +13,7 @@ public class Navigate extends OpMode {
     @Override
     public void init() {
 
-        bot = new Volta(hardwareMap, telemetry);
+        bot = new Volta(0, 0, 0, hardwareMap, telemetry);
     }
 
     @Override

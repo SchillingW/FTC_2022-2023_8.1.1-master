@@ -34,6 +34,7 @@ public class HolonomicOdometry {
                              RotateConvert convertL, RotateConvert convertR,
                              RotateConvert convertH,
                              double offsetL, double offsetR, double offsetH,
+                             double startX, double startY, double startRot,
                              Telemetry tele) {
 
         this.tele = tele;
@@ -49,6 +50,10 @@ public class HolonomicOdometry {
         this.offsetL = offsetL;
         this.offsetR = offsetR;
         this.offsetH = offsetH;
+
+        this.currX = startX;
+        this.currY = startY;
+        this.currRot = startRot;
 
         this.lastL = encoderL.getCurrentPosition() / convertL.tickPerInch;
         this.lastR = encoderR.getCurrentPosition() / convertR.tickPerInch;

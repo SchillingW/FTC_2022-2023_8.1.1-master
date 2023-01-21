@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.hardware;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.util.InterpolateClamp;
+import org.firstinspires.ftc.teamcode.util.VectorRotate;
 
 public class HolonomicNavigation extends AutonomousSystem {
 
@@ -92,6 +93,14 @@ public class HolonomicNavigation extends AutonomousSystem {
         targetX = x;
         targetY = y;
         targetRot = rot;
+    }
+
+    public void setTarget(double localX, double localY, double globalX, double globalY, double rot) {
+
+        setTarget(
+                VectorRotate.anchoredX(localX, localY, globalX, rot),
+                VectorRotate.anchoredY(localX, localY, globalY, rot),
+                rot);
     }
 
     public void track() {

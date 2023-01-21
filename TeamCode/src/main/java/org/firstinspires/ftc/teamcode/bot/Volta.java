@@ -18,7 +18,19 @@ public class Volta extends DriveSlide {
 
     public Claw claw;
 
-    public Volta(HardwareMap map, Telemetry tele) {
+    public final double clawX = 0;
+    public final double clawY = 6;
+
+    public final double frameX = 12;
+    public final double frameY = 12;
+
+    public final double aboveSlide = 6;
+    public final double belowSlide = -6;
+    public final double restSlide = 6;
+    public final double startSlide = 2.5;
+
+    public Volta(double startX, double startY, double startRot,
+                 HardwareMap map, Telemetry tele) {
 
         super(null, null, tele);
 
@@ -46,9 +58,8 @@ public class Volta extends DriveSlide {
                 motorFL, motorFR, motorBL,
                 convertEncoder.instance(1), convertEncoder.instance(-1),
                 convertEncoder.instance(-1),
-                -3.628,
-                3.438,
-                -1.496,
+                -3.628, 3.438, -1.496,
+                startX, startY, startRot,
                 tele);
 
         InterpolateClamp approach = new InterpolateClamp(
@@ -81,6 +92,7 @@ public class Volta extends DriveSlide {
                 motorSlide, convertSlide,
                 approachBelow, approachAbove,
                 0.25, 1, 0.125,
+                startSlide,
                 tele);
         subsystem.set(1, slide);
 

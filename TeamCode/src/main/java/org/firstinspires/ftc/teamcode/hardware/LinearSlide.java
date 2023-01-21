@@ -27,7 +27,7 @@ public class LinearSlide extends AutonomousSystem {
     public LinearSlide(
             DcMotor motor, RotateConvert convert,
             InterpolateClamp approachBelow, InterpolateClamp approachAbove,
-            double errorMargin, double speedFactor, double holdSpeed,
+            double errorMargin, double speedFactor, double holdSpeed, double start,
             Telemetry tele) {
 
         this.tele = tele;
@@ -42,7 +42,7 @@ public class LinearSlide extends AutonomousSystem {
         this.speedFactor = speedFactor;
         this.holdSpeed = holdSpeed;
 
-        this.start = motor.getCurrentPosition() / convert.tickPerInch;
+        this.start = motor.getCurrentPosition() / convert.tickPerInch - start;
     }
 
     @Override

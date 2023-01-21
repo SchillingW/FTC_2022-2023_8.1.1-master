@@ -13,7 +13,7 @@ public class ParallelMovement extends OpMode {
     @Override
     public void init() {
 
-        bot = new Volta(hardwareMap, telemetry);
+        bot = new Volta(0, 0, 0, hardwareMap, telemetry);
     }
 
     @Override
@@ -21,6 +21,7 @@ public class ParallelMovement extends OpMode {
 
         if (bot.next(bot.nav)) {
             bot.nav.setTarget(24, 0, Math.PI);
+            bot.slide.setTarget(bot.restSlide);
             bot.claw.open();
         }
 
@@ -45,7 +46,7 @@ public class ParallelMovement extends OpMode {
 
         if (bot.next()) {
             bot.nav.setTarget(-12, -12, 0);
-            bot.slide.setTarget(0);
+            bot.slide.setTarget(bot.restSlide);
             bot.claw.close();
         }
 

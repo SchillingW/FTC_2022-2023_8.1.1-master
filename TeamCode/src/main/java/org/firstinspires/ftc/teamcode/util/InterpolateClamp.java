@@ -21,6 +21,6 @@ public class InterpolateClamp {
         double result =
                 (in - minInput) / (maxInput - minInput) * (maxOutput - minOutput) + minOutput;
 
-        return result = Math.min(Math.max(result, minOutput), maxOutput);
+        return Math.min(Math.max(result, minOutput), maxOutput);
     }
 }

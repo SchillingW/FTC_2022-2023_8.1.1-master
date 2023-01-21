@@ -11,4 +11,14 @@ public class VectorRotate {
 
         return x * Math.sin(rot) + y * Math.cos(rot);
     }
+
+    public static double anchoredX(double localX, double localY, double globalX, double rot) {
+
+        return globalX - rotX(localX, localY, rot);
+    }
+
+    public static double anchoredY(double localX, double localY, double globalY, double rot) {
+
+        return globalY - rotY(localX, localY, rot);
+    }
 }
