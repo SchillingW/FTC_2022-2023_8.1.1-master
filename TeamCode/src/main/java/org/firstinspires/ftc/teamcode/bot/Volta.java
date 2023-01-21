@@ -11,23 +11,30 @@ import org.firstinspires.ftc.teamcode.hardware.HolonomicDrive;
 import org.firstinspires.ftc.teamcode.hardware.HolonomicNavigation;
 import org.firstinspires.ftc.teamcode.hardware.HolonomicOdometry;
 import org.firstinspires.ftc.teamcode.hardware.LinearSlide;
+import org.firstinspires.ftc.teamcode.util.AutonomousTimer;
 import org.firstinspires.ftc.teamcode.util.InterpolateClamp;
 import org.firstinspires.ftc.teamcode.util.RotateConvert;
 
 public class Volta extends DriveSlide {
 
     public Claw claw;
+    public AutonomousTimer timer;
 
-    public final double clawX = 0;
-    public final double clawY = 6;
+    public static final double clawX = 0;
+    public static final double clawY = 10;
 
-    public final double frameX = 12;
-    public final double frameY = 12;
+    public static final double frameX = 12.3;
+    public static final double frameY = 13.5;
 
-    public final double aboveSlide = 6;
-    public final double belowSlide = -6;
-    public final double restSlide = 6;
-    public final double startSlide = 2.5;
+    public static final double wheelWidth = 2;
+
+    public static final double aboveSlide = 6;
+    public static final double belowSlide = -6;
+    public static final double restSlide = 6;
+    public static final double startSlide = 2.5;
+
+    public static final double grabWait = 0.5;
+    public static final double dropBuffer = 0.25;
 
     public Volta(double startX, double startY, double startRot,
                  HardwareMap map, Telemetry tele) {
@@ -101,5 +108,11 @@ public class Volta extends DriveSlide {
         Servo servoClaw = map.get(Servo.class, "servoClaw");
 
         claw = new Claw(servoClaw, 0, 0.5, tele);
+
+
+
+        timer = new AutonomousTimer();
+
+        subsystem.add(timer);
     }
 }

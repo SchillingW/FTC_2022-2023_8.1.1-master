@@ -10,11 +10,14 @@ public class AutonomousSystem {
 
     public ArrayList<AutonomousSystem> subsystem = new ArrayList<>();
 
-    public boolean next(AutonomousSystem target) {
+    public boolean next(AutonomousSystem... target) {
 
         boolean rightMove = countMove == currMove;
 
-        if (!justInc && rightMove && target.isDone()) {
+        boolean done = true;
+        for (AutonomousSystem sub : target) done = done && sub.isDone();
+
+        if (!justInc && rightMove && done) {
 
             currMove++;
             justInc = true;
@@ -23,11 +26,6 @@ public class AutonomousSystem {
         countMove++;
 
         return rightMove;
-    }
-
-    public boolean next() {
-
-        return next(this);
     }
 
     public void update() {

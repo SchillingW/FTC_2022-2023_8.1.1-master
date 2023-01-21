@@ -14,62 +14,83 @@ public class LeftStackTest extends OpMode {
     @Override
     public void init() {
 
-        bot = new Volta(FieldDimensions.cellSize + bot.frameX / 2, bot.frameY / 2, 0, hardwareMap, telemetry);
+        bot = new Volta(
+                FieldDimensions.cellSize + FieldDimensions.cellMesh / 2 + Volta.wheelWidth + Volta.frameX / 2,
+                FieldDimensions.cellMesh / 2 + Volta.frameY / 2,
+                0,
+                hardwareMap, telemetry);
     }
 
     @Override
     public void loop() {
 
-        if (bot.next(bot.nav)) {
-            bot.nav.setTarget(0, 0, 1.5 * FieldDimensions.cellSize, 0.5 * FieldDimensions.cellSize, 0);
-            bot.slide.setTarget(bot.restSlide);
+        if (bot.next(bot.timer)) {
+            bot.timer.setTarget(Volta.grabWait);
             bot.claw.close();
         }
 
-        if (bot.next()) {
-            bot.nav.setTarget(bot.clawX, bot.clawY, FieldDimensions.cellSize, 2 * FieldDimensions.cellSize, Math.PI / 2);
-            bot.slide.setTarget(FieldDimensions.lowGoal + bot.aboveSlide);
+        if (bot.next(bot.nav)) {
+            bot.nav.setTarget(0, 0, 1.5 * FieldDimensions.cellSize, 0.5 * FieldDimensions.cellSize, 0);
+            bot.slide.setTarget(Volta.restSlide);
+        }
+
+        if (bot.next(bot.nav, bot.slide)) {
+            bot.nav.setTarget(Volta.clawX, Volta.clawY, FieldDimensions.cellSize, 2 * FieldDimensions.cellSize, Math.PI / 2);
+            bot.slide.setTarget(FieldDimensions.lowGoal + Volta.aboveSlide);
+        }
+
+        if (bot.next(bot.timer)) {
+            bot.timer.setTarget(Volta.dropBuffer);
+            bot.slide.setTarget(FieldDimensions.lowGoal + Volta.belowSlide);
         }
 
         if (bot.next(bot.slide)) {
-            bot.slide.setTarget(FieldDimensions.lowGoal + bot.belowSlide);
             bot.claw.open();
         }
 
         if (bot.next(bot.nav)) {
             bot.nav.setTarget(0, 0, 1.5 * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize, Math.PI / 2);
-            bot.slide.setTarget(bot.restSlide);
+            bot.slide.setTarget(Volta.restSlide);
         }
 
-        if (bot.next()) {
-            bot.nav.setTarget(bot.clawX, bot.clawY, FieldDimensions.stackX(0), FieldDimensions.stackY(0), Math.PI / 2);
+        if (bot.next(bot.nav, bot.slide)) {
+            bot.nav.setTarget(Volta.clawX, Volta.clawY, FieldDimensions.stackX(0), FieldDimensions.stackY(0), Math.PI / 2);
             bot.slide.setTarget(FieldDimensions.stackHeight(5));
         }
 
-        if (bot.next(bot.slide)) {
-            bot.slide.setTarget(FieldDimensions.stackHeight(5) + bot.aboveSlide);
+        if (bot.next(bot.timer)) {
+            bot.timer.setTarget(Volta.grabWait);
             bot.claw.close();
         }
 
-        if (bot.next()) {
-            bot.nav.setTarget(bot.clawX, bot.clawY, 2 * FieldDimensions.cellSize, 3 * FieldDimensions.cellSize, 0);
-            bot.slide.setTarget(FieldDimensions.highGoal + bot.aboveSlide);
+        if (bot.next(bot.slide)) {
+            bot.slide.setTarget(FieldDimensions.stackHeight(5) + Volta.aboveSlide);
+        }
+
+        if (bot.next(bot.nav, bot.slide)) {
+            bot.nav.setTarget(Volta.clawX, Volta.clawY, 2 * FieldDimensions.cellSize, 3 * FieldDimensions.cellSize, 0);
+            bot.slide.setTarget(FieldDimensions.highGoal + Volta.aboveSlide);
+        }
+
+        if (bot.next(bot.timer)) {
+            bot.timer.setTarget(Volta.dropBuffer);
+            bot.slide.setTarget(FieldDimensions.highGoal + Volta.belowSlide);
         }
 
         if (bot.next(bot.slide)) {
-            bot.slide.setTarget(FieldDimensions.highGoal + bot.belowSlide);
             bot.claw.open();
         }
 
-        if (bot.next()) {
-            bot.nav.setTarget(0, 0, 1.5 * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellCount, 0);
-            bot.slide.setTarget(bot.startSlide);
+        if (bot.next(bot.nav, bot.slide)) {
+            bot.nav.setTarget(0, 0, 1.5 * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize, 0);
+            bot.slide.setTarget(Volta.startSlide);
         }
 
         if (bot.next()) {
             requestOpModeStop();
         }
 
+        if (bot.justInc) bot.timer.reset();
         bot.update();
         telemetry.update();
     }

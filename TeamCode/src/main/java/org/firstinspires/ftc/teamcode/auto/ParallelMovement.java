@@ -21,7 +21,7 @@ public class ParallelMovement extends OpMode {
 
         if (bot.next(bot.nav)) {
             bot.nav.setTarget(24, 0, Math.PI);
-            bot.slide.setTarget(bot.restSlide);
+            bot.slide.setTarget(Volta.restSlide);
             bot.claw.open();
         }
 
@@ -39,14 +39,14 @@ public class ParallelMovement extends OpMode {
             bot.claw.open();
         }
 
-        if (bot.next()) {
+        if (bot.next(bot.nav, bot.slide)) {
             bot.nav.setTarget(-24, -24, 0);
             bot.slide.setTarget(24);
         }
 
-        if (bot.next()) {
+        if (bot.next(bot.nav, bot.slide)) {
             bot.nav.setTarget(-12, -12, 0);
-            bot.slide.setTarget(bot.restSlide);
+            bot.slide.setTarget(Volta.restSlide);
             bot.claw.close();
         }
 

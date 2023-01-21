@@ -43,6 +43,8 @@ public class LinearSlide extends AutonomousSystem {
         this.holdSpeed = holdSpeed;
 
         this.start = motor.getCurrentPosition() / convert.tickPerInch - start;
+
+        setTarget(start);
     }
 
     @Override

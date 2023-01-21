@@ -4,15 +4,16 @@ public class FieldDimensions {
 
     public static final double cellCount = 6;
     public static final double cellSize = 23.5;
+    public static final double cellMesh = 1.8;
     public static final double coneRadius = 2;
 
-    public static final double groundGoal = 3;
-    public static final double lowGoal = 12;
-    public static final double midGoal = 24;
-    public static final double highGoal = 36;
+    public static final double groundGoal = 1;
+    public static final double lowGoal = 13;
+    public static final double midGoal = 23;
+    public static final double highGoal = 33;
 
     public static final double coneGrab = 2.5;
-    public static final double coneStack = 1;
+    public static final double coneStack = 1.19;
 
     public static double stackX(double x) {
 

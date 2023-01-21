@@ -44,6 +44,8 @@ public class HolonomicNavigation extends AutonomousSystem {
         this.linearSpeedFactor = linearSpeedFactor;
         this.turnSpeedFactor = turnSpeedFactor;
         this.turnToLinearFactor = turnToLinearFactor;
+
+        setTarget(odometry.currX, odometry.currY, odometry.currRot);
     }
 
     @Override
