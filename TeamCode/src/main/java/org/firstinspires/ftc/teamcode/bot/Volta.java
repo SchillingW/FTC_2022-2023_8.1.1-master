@@ -15,34 +15,44 @@ import org.firstinspires.ftc.teamcode.util.AutonomousTimer;
 import org.firstinspires.ftc.teamcode.util.InterpolateClamp;
 import org.firstinspires.ftc.teamcode.util.RotateConvert;
 
+// bot configuration for VoltaVinci
 public class Volta extends DriveSlide {
 
+    // declare hardware devices
     public Claw claw;
     public AutonomousTimer timer;
 
+    // local position of claw relative to bot center
     public static final double clawX = 0;
     public static final double clawY = 10;
 
+    // frame size
     public static final double frameX = 12.3;
     public static final double frameY = 13.5;
 
+    // width of mecanum wheels extending past frame
     public static final double wheelWidth = 2;
 
+    // slide heights
     public static final double aboveSlide = 6;
     public static final double belowSlide = -6;
     public static final double restSlide = 6;
     public static final double startSlide = 2.5;
 
+    // delay times
     public static final double grabWait = 0.5;
     public static final double dropBuffer = 0.25;
 
+    // initialize bot
     public Volta(double startX, double startY, double startRot,
                  HardwareMap map, Telemetry tele) {
 
+        // initialise DriveSlide device
         super(null, null, tele);
 
 
 
+        // initialize drive motors
         DcMotor motorFL = map.get(DcMotor.class, "motorFL");
         DcMotor motorFR = map.get(DcMotor.class, "motorFR");
         DcMotor motorBL = map.get(DcMotor.class, "motorBL");
@@ -52,6 +62,7 @@ public class Volta extends DriveSlide {
         RotateConvert convertMotor = new RotateConvert(420, 1);
         RotateConvert convertEncoder = new RotateConvert(8192, 7.468);
 
+        // initialize drive train
         HolonomicDrive drive = new HolonomicDrive(
                 motorFL, motorFR, motorBL, motorBR,
                 convertMotor.instance(1), convertMotor.instance(-1),
@@ -69,10 +80,12 @@ public class Volta extends DriveSlide {
                 startX, startY, startRot,
                 tele);
 
+        // approach speed gradient
         InterpolateClamp approach = new InterpolateClamp(
                 6, 24,
                 0.25, 0.5);
 
+        // initialize navigation device and add as autonomous subsystem
         nav = new HolonomicNavigation(
                 drive, odometry, approach,
                 0.5, Math.PI / 96,
@@ -82,19 +95,23 @@ public class Volta extends DriveSlide {
 
 
 
+        // initialize slide motor
         DcMotor motorSlide = map.get(DcMotor.class, "motorSlide");
 
         // motorSlide records 2.69rot over a 24in displacement
         RotateConvert convertSlide = new RotateConvert(756, 8.922, -1);
 
+        // approach speed gradient from below target
         InterpolateClamp approachBelow = new InterpolateClamp(
                 3, 6,
                 0.5, 1);
 
+        // approach speed gradient from above target
         InterpolateClamp approachAbove = new InterpolateClamp(
                 6, 12,
                 0.25, 0.5);
 
+        // initialize linear slide device and add as autonomous subsystem
         slide = new LinearSlide(
                 motorSlide, convertSlide,
                 approachBelow, approachAbove,
@@ -105,14 +122,18 @@ public class Volta extends DriveSlide {
 
 
 
+        // initialize claw servo
         Servo servoClaw = map.get(Servo.class, "servoClaw");
 
+        // initialize claw device
         claw = new Claw(servoClaw, 0, 0.5, tele);
 
 
 
+        // initialize timer device
         timer = new AutonomousTimer();
 
+        // add timer as autonomous subsystem
         subsystem.add(timer);
     }
 }

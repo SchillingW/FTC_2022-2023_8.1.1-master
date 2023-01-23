@@ -2,11 +2,13 @@ package org.firstinspires.ftc.teamcode.util;
 
 public class InterpolateClamp {
 
+    // define curve
     public final double minInput;
     public final double maxInput;
     public final double minOutput;
     public final double maxOutput;
 
+    // initialize curve
     public InterpolateClamp(double minInput, double maxInput,
                             double minOutput, double maxOutput) {
 
@@ -16,6 +18,7 @@ public class InterpolateClamp {
         this.maxOutput = maxOutput;
     }
 
+    // transform input along curve
     public double perform(double in) {
 
         double result =
