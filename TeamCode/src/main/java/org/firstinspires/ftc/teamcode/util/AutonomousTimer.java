@@ -2,10 +2,14 @@ package org.firstinspires.ftc.teamcode.util;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.hardware.AutonomousSystem;
 
 // timer device as autonomous timing system
 public class AutonomousTimer extends AutonomousSystem {
+
+    // store telemetry device
+    public Telemetry tele;
 
     // declare timer device
     public ElapsedTime time;
@@ -14,10 +18,20 @@ public class AutonomousTimer extends AutonomousSystem {
     public double target;
 
     // initialize device
-    public AutonomousTimer() {
+    public AutonomousTimer(Telemetry tele) {
+
+        this.tele = tele;
 
         time = new ElapsedTime();
         time.reset();
+    }
+
+    // telemetry debugging
+    @Override
+    public void update() {
+
+        super.update();
+        tele.addData("timer", time.seconds());
     }
 
     // return true if target time is passed

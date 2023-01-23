@@ -128,10 +128,13 @@ public class Volta extends DriveSlide {
         // initialize claw device
         claw = new Claw(servoClaw, 0, 0.5, tele);
 
+        // add claw as autonomous subsystem
+        subsystem.add(claw);
+
 
 
         // initialize timer device
-        timer = new AutonomousTimer();
+        timer = new AutonomousTimer(tele);
 
         // add timer as autonomous subsystem
         subsystem.add(timer);

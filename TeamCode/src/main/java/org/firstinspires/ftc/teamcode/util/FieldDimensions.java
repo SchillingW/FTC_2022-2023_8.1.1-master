@@ -17,22 +17,26 @@ public class FieldDimensions {
     // cone size
     public static final double coneRadius = 2;
     public static final double coneGrab = 2.5;
-    public static final double coneStack = 1.19;
+    public static final double coneStack = 1.2;
 
     // get position of indexed stack in x axis
-    public static double stackX(double x) {
+    public static double stackX(int x) {
 
-        return
-                (1 - x) * coneRadius +
-                x * (cellSize * cellCount - coneRadius);
+        return new InterpolateClamp(
+                0, 1,
+                cellMesh / 2 + coneRadius,
+                cellSize * cellCount - cellMesh / 2 - coneRadius
+        ).perform(x);
     }
 
     // get position of indexed stack in y axis
-    public static double stackY(double y) {
+    public static double stackY(int y) {
 
-        return
-                (1 - y) * (cellSize * (cellCount / 2 - 0.5)) +
-                y * (cellSize * (cellCount / 2 + 0.5));
+        return new InterpolateClamp(
+                0, 1,
+                cellSize * (cellCount / 2 - 0.5),
+                cellSize * (cellCount / 2 + 0.5)
+        ).perform(y);
     }
 
     // get target grab height of stack

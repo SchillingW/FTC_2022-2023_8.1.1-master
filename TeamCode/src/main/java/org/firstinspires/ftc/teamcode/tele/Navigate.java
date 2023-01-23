@@ -41,6 +41,10 @@ public class Navigate extends OpMode {
 
             // run linear slide by input
             bot.slide.run(-gamepad2.left_stick_y * 0.5);
+
+            // telemetry debugging
+            bot.claw.update();
+            bot.timer.update();
         }
 
         // close claw on left bumper
