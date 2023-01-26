@@ -10,9 +10,9 @@ public class FieldDimensions {
 
     // junction size
     public static final double groundGoal = 1;
-    public static final double lowGoal = 13;
-    public static final double midGoal = 23;
-    public static final double highGoal = 33;
+    public static final double lowGoal = 13.5;
+    public static final double midGoal = 23.5;
+    public static final double highGoal = 33.5;
 
     // cone size
     public static final double coneRadius = 2;

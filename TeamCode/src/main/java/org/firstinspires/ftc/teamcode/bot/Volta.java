@@ -34,14 +34,14 @@ public class Volta extends DriveSlide {
     public static final double wheelWidth = 2;
 
     // slide heights
-    public static final double aboveSlide = 6;
-    public static final double belowSlide = -6;
-    public static final double restSlide = 6;
+    public static final double aboveSlide = 4.5;
+    public static final double belowSlide = -3;
+    public static final double restSlide = 2.5;
     public static final double startSlide = 2.5;
 
     // delay times
-    public static final double grabWait = 0.5;
-    public static final double dropBuffer = 0.25;
+    public static final double grabWait = 0.25;
+    public static final double dropBuffer = 0.125;
 
     // initialize bot
     public Volta(double startX, double startY, double startRot,
@@ -82,8 +82,8 @@ public class Volta extends DriveSlide {
 
         // approach speed gradient
         InterpolateClamp approach = new InterpolateClamp(
-                6, 24,
-                0.25, 0.5);
+                3, 18,
+                0.25, 0.75);
 
         // initialize navigation device and add as autonomous subsystem
         nav = new HolonomicNavigation(
@@ -103,13 +103,13 @@ public class Volta extends DriveSlide {
 
         // approach speed gradient from below target
         InterpolateClamp approachBelow = new InterpolateClamp(
-                3, 6,
+                0, 6,
                 0.5, 1);
 
         // approach speed gradient from above target
         InterpolateClamp approachAbove = new InterpolateClamp(
-                6, 12,
-                0.25, 0.5);
+                0, 6,
+                0.5, 0.75);
 
         // initialize linear slide device and add as autonomous subsystem
         slide = new LinearSlide(

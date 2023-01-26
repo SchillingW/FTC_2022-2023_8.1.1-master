@@ -18,7 +18,7 @@ public class LeftStackCycle extends OpMode {
 
         // initialize bot
         bot = new Volta(
-                2 * FieldDimensions.cellSize - FieldDimensions.cellMesh / 2 - Volta.wheelWidth - Volta.frameX / 2,
+                2 * FieldDimensions.cellSize - FieldDimensions.cellMesh / 2 - Volta.wheelWidth - Volta.frameX / 2 - 1.8,
                 FieldDimensions.cellMesh / 2 + Volta.frameY / 2,
                 0,
                 hardwareMap, telemetry);
@@ -37,7 +37,7 @@ public class LeftStackCycle extends OpMode {
         // navigate to high goal
 
         if (bot.next(bot.nav)) {
-            bot.nav.setTarget(0, 0, 1.5 * FieldDimensions.cellSize, 2 * FieldDimensions.cellSize, 0);
+            bot.nav.setTarget(0, 0, 1.5 * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize, 0);
             bot.slide.setTarget(Volta.restSlide);
         }
 
@@ -59,7 +59,7 @@ public class LeftStackCycle extends OpMode {
 
         // cycle from stack
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
 
             // navigate to stack
 
@@ -88,7 +88,6 @@ public class LeftStackCycle extends OpMode {
 
             if (bot.next(bot.nav)) {
                 bot.nav.setTarget(0, 0, 1.5 * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize, Math.PI / 2);
-                bot.slide.setTarget(Volta.restSlide);
             }
 
             if (bot.next(bot.nav, bot.slide)) {
@@ -111,7 +110,7 @@ public class LeftStackCycle extends OpMode {
         // park
 
         if (bot.next(bot.nav, bot.slide)) {
-            bot.nav.setTarget(0, 0, 1.5 * FieldDimensions.cellSize, 2.25 * FieldDimensions.cellSize, 0);
+            bot.nav.setTarget(0, 0, 1.5 * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize, 0);
             bot.slide.setTarget(Volta.startSlide);
         }
 

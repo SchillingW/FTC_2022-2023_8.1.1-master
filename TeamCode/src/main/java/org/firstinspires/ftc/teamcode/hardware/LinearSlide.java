@@ -115,6 +115,12 @@ public class LinearSlide extends AutonomousSystem {
         tele.addData("input slide", speed);
     }
 
+    // get speed of slide based on move direction
+    public double velMag(double dir) {
+
+        return dir < 0 ? approachAbove.maxOutput : approachBelow.maxOutput;
+    }
+
     // track device position
     public void track() {
 
