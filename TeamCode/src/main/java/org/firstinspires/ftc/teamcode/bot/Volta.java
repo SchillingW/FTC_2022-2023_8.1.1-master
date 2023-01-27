@@ -42,6 +42,7 @@ public class Volta extends DriveSlide {
     // delay times
     public static final double grabWait = 0.25;
     public static final double dropBuffer = 0.125;
+    public static final double alignTime = 0.5;
 
     // initialize bot
     public Volta(double startX, double startY, double startRot,
@@ -83,13 +84,13 @@ public class Volta extends DriveSlide {
         // approach speed gradient
         InterpolateClamp approach = new InterpolateClamp(
                 3, 18,
-                0.25, 0.75);
+                0.25, 0.6);
 
         // initialize navigation device and add as autonomous subsystem
         nav = new HolonomicNavigation(
                 drive, odometry, approach,
                 0.5, Math.PI / 96,
-                1, 1, 48 / Math.PI,
+                1, 0.8, 48 / Math.PI,
                 tele);
         subsystem.set(0, nav);
 

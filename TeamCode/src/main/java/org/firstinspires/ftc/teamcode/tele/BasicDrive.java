@@ -14,6 +14,7 @@ public class BasicDrive extends OpMode {
     public Volta bot;
 
     // speed control
+    public static final double turnSpeed = 0.6;
     public static final double speed0 = 0.4;
     public static final double speed1 = 0.7;
     public static final double speed2 = 1.0;
@@ -48,8 +49,8 @@ public class BasicDrive extends OpMode {
         if (gamepad2.a || gamepad2.x || gamepad2.y || gamepad2.b) isAuto = true;
 
         // control claw with bumpers
-        if (gamepad2.left_bumper) bot.claw.close();
-        if (gamepad2.right_bumper) bot.claw.open();
+        if (gamepad2.left_bumper) bot.claw.open();
+        if (gamepad2.right_bumper) bot.claw.close();
 
         // get analog input
         double x = gamepad1.left_stick_x;
@@ -57,9 +58,15 @@ public class BasicDrive extends OpMode {
         double rot = -gamepad1.right_stick_x;
         double slide = -gamepad2.right_stick_y;
 
+        // readjust input magnitude
+        x *= Math.sqrt(x * x + y * y);
+        y *= Math.sqrt(x * x + y * y);
+        rot *= Math.abs(rot);
+        slide *= Math.abs(slide);
+
         // run drive train by input
         bot.nav.track();
-        bot.nav.drive.run(x * speed, y * speed, rot * speed, bot.nav.odometry.currRot);
+        bot.nav.drive.run(x * speed, y * speed, rot * turnSpeed);
 
         // run linear slide to target
         if (slide != 0) {

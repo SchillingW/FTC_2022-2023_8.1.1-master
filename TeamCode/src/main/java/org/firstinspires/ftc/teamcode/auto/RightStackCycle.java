@@ -46,6 +46,10 @@ public class RightStackCycle extends OpMode {
             bot.slide.setTarget(FieldDimensions.highGoal + Volta.aboveSlide);
         }
 
+        if (bot.next(bot.timer)) {
+            bot.timer.setTarget(Volta.alignTime);
+        }
+
         // drop on high goal
 
         if (bot.next(bot.timer)) {
@@ -59,18 +63,22 @@ public class RightStackCycle extends OpMode {
 
         // cycle from stack
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 1; i <= 3; i++) {
 
             // navigate to stack
 
             if (bot.next(bot.nav)) {
-                bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 1.5) * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize, -Math.PI / 2);
+                bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize + i * 0.75, -Math.PI / 2);
                 bot.slide.setTarget(Volta.restSlide);
             }
 
             if (bot.next(bot.nav, bot.slide)) {
-                bot.nav.setTarget(Volta.clawX, Volta.clawY, FieldDimensions.stackX(1), FieldDimensions.stackY(0), -Math.PI / 2);
-                bot.slide.setTarget(FieldDimensions.stackHeight(5 - i));
+                bot.nav.setTarget(Volta.clawX, Volta.clawY, FieldDimensions.stackX(1) + 1, FieldDimensions.stackY(0) + i * 0.75, -Math.PI / 2);
+                bot.slide.setTarget(FieldDimensions.stackHeight(6 - i));
+            }
+
+            if (bot.next(bot.timer)) {
+                bot.timer.setTarget(Volta.alignTime);
             }
 
             // grab from stack
@@ -87,12 +95,16 @@ public class RightStackCycle extends OpMode {
             // navigate to high goal
 
             if (bot.next(bot.nav)) {
-                bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 1.5) * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize, -Math.PI / 2);
+                bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize + i * 0.75, -Math.PI / 2);
             }
 
             if (bot.next(bot.nav, bot.slide)) {
-                bot.nav.setTarget(Volta.clawX, Volta.clawY, (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize, 3 * FieldDimensions.cellSize, 0);
+                bot.nav.setTarget(Volta.clawX, Volta.clawY, (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize, 3 * FieldDimensions.cellSize + i * 0.75, 0);
                 bot.slide.setTarget(FieldDimensions.highGoal + Volta.aboveSlide);
+            }
+
+            if (bot.next(bot.timer)) {
+                bot.timer.setTarget(Volta.alignTime);
             }
 
             // drop on high goal
