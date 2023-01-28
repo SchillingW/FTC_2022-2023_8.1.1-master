@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.bot.Volta;
 import org.firstinspires.ftc.teamcode.util.FieldDimensions;
 
 // driver controlled opmode
-@TeleOp(name="BasicDrive", group="LeaguePrep")
+@TeleOp(name="BasicDrivewithRangeLED", group="LeaguePrep")
 public class BasicDrivewithRangeLED extends OpMode {
 
     // declare bot

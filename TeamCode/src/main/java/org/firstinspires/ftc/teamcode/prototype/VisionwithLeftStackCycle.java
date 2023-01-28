@@ -15,7 +15,7 @@ public class VisionwithLeftStackCycle extends OpMode {
     // declare bot
     public Volta bot;
     public VisionDevice vision;
-    RevBlinkinLedDriver lights;
+    //RevBlinkinLedDriver lights;
 
 
     @Override
@@ -28,7 +28,7 @@ public class VisionwithLeftStackCycle extends OpMode {
                 0,
                 hardwareMap, telemetry);
         vision = new VisionDevice(telemetry, hardwareMap);
-        lights = hardwareMap.get(RevBlinkinLedDriver.class, "lights");
+        //lights = hardwareMap.get(RevBlinkinLedDriver.class, "lights");
         vision.init();
 
         init_loop(0);
@@ -37,7 +37,7 @@ public class VisionwithLeftStackCycle extends OpMode {
     public void init_loop(int result) {
         int next = vision.perform(1f / 3f);
         if (next != -1) result = next;
-        if (result == -1) {
+        /*if (result == -1) {
             lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
         }
         if (result == 0) {
@@ -45,7 +45,7 @@ public class VisionwithLeftStackCycle extends OpMode {
         }
         if (result == 1) {
             lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.HOT_PINK);
-        }
+        }*/
         telemetry.addData("current result", result);
         telemetry.update();
     }
@@ -54,7 +54,7 @@ public class VisionwithLeftStackCycle extends OpMode {
     public void loop() {
 
         // grab starting cone
-        lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
+        //lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
 
         if (bot.next(bot.timer)) {
             bot.timer.setTarget(Volta.grabWait);
