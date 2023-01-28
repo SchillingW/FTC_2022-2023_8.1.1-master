@@ -121,12 +121,22 @@ public class HolonomicNavigation extends AutonomousSystem {
     }
 
     // set target position such that local point on bot lies over global point
-    public void setTarget(double localX, double localY, double globalX, double globalY, double rot) {
+    public void setTarget(double localX, double localY,
+                          double globalX, double globalY,
+                          double rot) {
+
+        setTarget(localX, localY, globalX, globalY, rot, rot);
+    }
+
+    // set target position such that local point on bot lies over global point
+    public void setTarget(double localX, double localY,
+                          double globalX, double globalY,
+                          double imagineRot, double actualRot) {
 
         setTarget(
-                VectorRotate.anchoredX(localX, localY, globalX, rot),
-                VectorRotate.anchoredY(localX, localY, globalY, rot),
-                rot);
+                VectorRotate.anchoredX(localX, localY, globalX, imagineRot),
+                VectorRotate.anchoredY(localX, localY, globalY, imagineRot),
+                actualRot);
     }
 
     // track device position

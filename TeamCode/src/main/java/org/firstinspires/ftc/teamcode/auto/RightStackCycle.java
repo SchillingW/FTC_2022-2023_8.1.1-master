@@ -37,7 +37,7 @@ public class RightStackCycle extends OpMode {
         // navigate to high goal
 
         if (bot.next(bot.nav)) {
-            bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 1.5) * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize, 0);
+            bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 1.5) * FieldDimensions.cellSize, 2.75 * FieldDimensions.cellSize, 0);
             bot.slide.setTarget(Volta.restSlide);
         }
 
@@ -68,12 +68,12 @@ public class RightStackCycle extends OpMode {
             // navigate to stack
 
             if (bot.next(bot.nav)) {
-                bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize + i * 0.75, -Math.PI / 2);
+                bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize + i * 0.5, -Math.PI / 2);
                 bot.slide.setTarget(Volta.restSlide);
             }
 
             if (bot.next(bot.nav, bot.slide)) {
-                bot.nav.setTarget(Volta.clawX, Volta.clawY, FieldDimensions.stackX(1) + 1, FieldDimensions.stackY(0) + i * 0.75, -Math.PI / 2);
+                bot.nav.setTarget(Volta.clawX, Volta.clawY, FieldDimensions.stackX(1) + 1, FieldDimensions.stackY(0) + i * 0.5, -Math.PI / 2);
                 bot.slide.setTarget(FieldDimensions.stackHeight(6 - i));
             }
 
@@ -95,11 +95,11 @@ public class RightStackCycle extends OpMode {
             // navigate to high goal
 
             if (bot.next(bot.nav)) {
-                bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize + i * 0.75, -Math.PI / 2);
+                bot.nav.setTarget(Volta.clawX, Volta.clawY, (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize, 3 * FieldDimensions.cellSize + i * 0.5, 0, -Math.PI / 2);
             }
 
             if (bot.next(bot.nav, bot.slide)) {
-                bot.nav.setTarget(Volta.clawX, Volta.clawY, (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize, 3 * FieldDimensions.cellSize + i * 0.75, 0);
+                bot.nav.setTarget(Volta.clawX, Volta.clawY, (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize, 3 * FieldDimensions.cellSize + i * 0.5, 0);
                 bot.slide.setTarget(FieldDimensions.highGoal + Volta.aboveSlide);
             }
 
