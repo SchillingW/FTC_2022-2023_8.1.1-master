@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.bot.Volta;
-import org.firstinspires.ftc.teamcode.prototype.VisionDevice;
 import org.firstinspires.ftc.teamcode.util.FieldDimensions;
 
 // cycle cones from stack on high goal
@@ -13,8 +12,6 @@ public class LeftStackCycle extends OpMode {
 
     // declare bot
     public Volta bot;
-    public VisionDevice vision;
-    int result;
 
     @Override
     public void init() {
@@ -25,25 +22,15 @@ public class LeftStackCycle extends OpMode {
                 FieldDimensions.cellMesh / 2 + Volta.frameY / 2,
                 0,
                 hardwareMap, telemetry);
-        vision = new VisionDevice(telemetry, hardwareMap);
-        //lights = hardwareMap.get(RevBlinkinLedDriver.class, "lights");
-        vision.init();
     }
 
     @Override
     public void init_loop() {
-        int next = vision.perform(1f / 3f);
-        if (next != -1) result = next;
-        /*if (result == -1) {
-            lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
-        }
-        if (result == 0) {
-            lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.ORANGE);
-        }
-        if (result == 1) {
-            lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.HOT_PINK);
-        }*/
-        telemetry.addData("current result", result);
+
+        // update vision
+        bot.vision.loop();
+
+        // telemetry debugging
         telemetry.update();
     }
 
@@ -145,7 +132,7 @@ public class LeftStackCycle extends OpMode {
         // park
 
         if (bot.next(bot.nav, bot.slide)) {
-            bot.nav.setTarget(0, 0, (0.5 + result) * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize, 0);
+            bot.nav.setTarget(0, 0, (0.5 + bot.vision.result) * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize, 0);
             bot.slide.setTarget(Volta.startSlide);
         }
 

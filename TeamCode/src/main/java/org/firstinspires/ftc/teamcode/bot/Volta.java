@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.hardware.HolonomicDrive;
 import org.firstinspires.ftc.teamcode.hardware.HolonomicNavigation;
 import org.firstinspires.ftc.teamcode.hardware.HolonomicOdometry;
 import org.firstinspires.ftc.teamcode.hardware.LinearSlide;
+import org.firstinspires.ftc.teamcode.hardware.VisionDevice;
 import org.firstinspires.ftc.teamcode.util.AutonomousTimer;
 import org.firstinspires.ftc.teamcode.util.InterpolateClamp;
 import org.firstinspires.ftc.teamcode.util.RotateConvert;
@@ -20,6 +21,7 @@ public class Volta extends DriveSlide {
 
     // declare hardware devices
     public Claw claw;
+    public VisionDevice vision;
     public AutonomousTimer timer;
 
     // local position of claw relative to bot center
@@ -131,6 +133,11 @@ public class Volta extends DriveSlide {
 
         // add claw as autonomous subsystem
         subsystem.add(claw);
+
+
+
+        // initialize vision device
+        vision = new VisionDevice(tele, map);
 
 
 
