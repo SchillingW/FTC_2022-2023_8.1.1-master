@@ -42,11 +42,11 @@ public class BasicDrive extends OpMode {
         if (gamepad1.b) speed = speed2;
 
         // control slide with buttons
-        if (gamepad2.a) bot.slide.setTarget(Volta.restSlide);
-        if (gamepad2.x) bot.slide.setTarget(FieldDimensions.lowGoal + Volta.aboveSlide);
-        if (gamepad2.y) bot.slide.setTarget(FieldDimensions.midGoal + Volta.aboveSlide);
-        if (gamepad2.b) bot.slide.setTarget(FieldDimensions.highGoal + Volta.aboveSlide);
-        if (gamepad2.a || gamepad2.x || gamepad2.y || gamepad2.b) isAuto = true;
+        if (gamepad2.b) bot.slide.setTarget(Volta.restSlide);
+        if (gamepad2.a) bot.slide.setTarget(FieldDimensions.lowGoal + Volta.aboveSlide);
+        if (gamepad2.x) bot.slide.setTarget(FieldDimensions.midGoal + Volta.aboveSlide);
+        if (gamepad2.y) bot.slide.setTarget(FieldDimensions.highGoal + Volta.aboveSlide);
+        if (gamepad2.b || gamepad2.a || gamepad2.x || gamepad2.y) isAuto = true;
 
         // control claw with bumpers
         if (gamepad2.left_bumper) bot.claw.open();
