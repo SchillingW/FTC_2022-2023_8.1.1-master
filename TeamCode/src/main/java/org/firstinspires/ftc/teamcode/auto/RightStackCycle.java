@@ -133,7 +133,7 @@ public class RightStackCycle extends OpMode {
         // park
 
         if (bot.next(bot.nav, bot.slide)) {
-            bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 2.5 + bot.vision.result) * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize, 0);
+            bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 2.5 + bot.vision.result) * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize, -Math.PI / 2);
             bot.slide.setTarget(Volta.startSlide);
         }
 
