@@ -1,11 +1,14 @@
 package org.firstinspires.ftc.teamcode.bot;
 
+import com.qualcomm.robotcore.hardware.ColorRangeSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.hardware.Claw;
+import org.firstinspires.ftc.teamcode.hardware.ConeDistLocalizer;
+import org.firstinspires.ftc.teamcode.hardware.DistSensor;
 import org.firstinspires.ftc.teamcode.hardware.DriveSlide;
 import org.firstinspires.ftc.teamcode.hardware.HolonomicDrive;
 import org.firstinspires.ftc.teamcode.hardware.HolonomicNavigation;
@@ -13,6 +16,7 @@ import org.firstinspires.ftc.teamcode.hardware.HolonomicOdometry;
 import org.firstinspires.ftc.teamcode.hardware.LinearSlide;
 import org.firstinspires.ftc.teamcode.hardware.VisionDevice;
 import org.firstinspires.ftc.teamcode.util.AutonomousTimer;
+import org.firstinspires.ftc.teamcode.util.FieldDimensions;
 import org.firstinspires.ftc.teamcode.util.InterpolateClamp;
 import org.firstinspires.ftc.teamcode.util.RotateConvert;
 
@@ -21,6 +25,7 @@ public class Volta extends DriveSlide {
 
     // declare hardware devices
     public Claw claw;
+    public ConeDistLocalizer coneLoc;
     public VisionDevice vision;
     public AutonomousTimer timer;
 
@@ -133,6 +138,23 @@ public class Volta extends DriveSlide {
 
         // add claw as autonomous subsystem
         subsystem.add(claw);
+
+
+
+        // initialize distance sensors
+        ColorRangeSensor dist1 = map.get(ColorRangeSensor.class, "distance1");
+        ColorRangeSensor dist2 = map.get(ColorRangeSensor.class, "distance2");
+
+        // initialize distance sensors
+        double instanceZero = -frameY / 2 - FieldDimensions.sensorWidth;
+        DistSensor sensor1 = new DistSensor(dist1, instanceZero, tele);
+        DistSensor sensor2 = new DistSensor(dist2, instanceZero, tele);
+
+        // initialize cone localization
+        coneLoc = new ConeDistLocalizer(
+                sensor1, sensor2,
+                -0.6, 0.6, 1.5,
+                tele);
 
 
 

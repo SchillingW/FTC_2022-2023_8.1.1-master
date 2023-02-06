@@ -19,6 +19,9 @@ public class FieldDimensions {
     public static final double coneGrab = 2.5;
     public static final double coneStack = 1.2;
 
+    // hardware size
+    public static final double sensorWidth = 0.7;
+
     // get position of indexed stack in x axis
     public static double stackX(int x) {
 

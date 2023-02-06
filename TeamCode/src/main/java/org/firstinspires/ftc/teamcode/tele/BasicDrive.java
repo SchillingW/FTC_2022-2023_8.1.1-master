@@ -78,6 +78,12 @@ public class BasicDrive extends OpMode {
             bot.slide.run(bot.slide.holdSpeed);
         }
 
+        // localize cone
+        bot.coneLoc.update(
+                bot.nav.odometry.currX,
+                bot.nav.odometry.currY,
+                bot.nav.odometry.currRot);
+
         // telemetry debugging
         telemetry.addData("speed", speed);
         telemetry.update();
