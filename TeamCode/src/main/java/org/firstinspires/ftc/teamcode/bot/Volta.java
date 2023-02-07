@@ -96,7 +96,7 @@ public class Volta extends DriveSlide {
         // initialize navigation device and add as autonomous subsystem
         nav = new HolonomicNavigation(
                 drive, odometry, approach,
-                0.5, Math.PI / 96,
+                1, Math.PI / 96,
                 1, 0.8, 48 / Math.PI,
                 tele);
         subsystem.set(0, nav);
@@ -153,7 +153,7 @@ public class Volta extends DriveSlide {
         // initialize cone localization
         coneLoc = new ConeDistLocalizer(
                 sensor1, sensor2,
-                -0.6, 0.6, 1.5,
+                -0.6, 0.6, 1.5, clawY + 2,
                 tele);
 
 
