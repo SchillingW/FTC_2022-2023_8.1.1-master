@@ -15,23 +15,22 @@ public class DistSensor {
     public ColorRangeSensor sensor;
 
     // offsets
-    public static final double globalZero = 0;
-    public double instanceZero;
+    public double offset;
 
     // initialize device
-    public DistSensor(ColorRangeSensor sensor, double instanceZero, Telemetry tele) {
+    public DistSensor(ColorRangeSensor sensor, double offset, Telemetry tele) {
 
         this.tele = tele;
 
         this.sensor = sensor;
 
-        this.instanceZero = instanceZero;
+        this.offset = offset;
     }
 
     // get distance measurement
     public double dist() {
 
-        double result = sensor.getDistance(DistanceUnit.INCH) - globalZero - instanceZero;
+        double result = sensor.getDistance(DistanceUnit.INCH) - offset;
         tele.addData("distance", result);
         return result;
     }
