@@ -142,22 +142,19 @@ public class Volta extends DriveSlide {
 
 
         // initialize distance sensors
-        ColorRangeSensor distLL = map.get(ColorRangeSensor.class, "distanceLL");
-        ColorRangeSensor distL0 = map.get(ColorRangeSensor.class, "distanceL0");
-        ColorRangeSensor distR0 = map.get(ColorRangeSensor.class, "distanceR0");
-        ColorRangeSensor distRR = map.get(ColorRangeSensor.class, "distanceRR");
+        ColorRangeSensor distL = map.get(ColorRangeSensor.class, "distanceL");
+        ColorRangeSensor distR = map.get(ColorRangeSensor.class, "distanceR");
 
         // initialize distance sensors
         double offset = -frameY / 2 - FieldDimensions.sensorWidth;
-        DistSensor sensorLL = new DistSensor(distLL, offset, tele);
-        DistSensor sensorL0 = new DistSensor(distL0, offset, tele);
-        DistSensor sensorR0 = new DistSensor(distR0, offset, tele);
-        DistSensor sensorRR = new DistSensor(distRR, offset, tele);
+        DistSensor sensorL = new DistSensor(distL, offset, tele);
+        DistSensor sensorR = new DistSensor(distR, offset, tele);
 
         // initialize cone localization
         coneLoc = new ConeDistLocalizer(
-                4, new DistSensor[] {sensorLL, sensorL0, sensorR0, sensorRR},
-                new double[] {-1.8, -0.6, +0.6, +1.8}, 1.5, clawY + 2,
+                sensorL, sensorR,
+                -0.6, 0.6,
+                1.5, clawY + 2,
                 tele);
 
 
