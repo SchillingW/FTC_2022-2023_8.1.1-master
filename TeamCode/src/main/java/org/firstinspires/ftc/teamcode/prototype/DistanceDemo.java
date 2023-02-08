@@ -26,6 +26,8 @@ public class DistanceDemo extends OpMode {
         double dist1 = distance1.getDistance(DistanceUnit.INCH);
         double dist2 = distance2.getDistance(DistanceUnit.INCH);
         double[] pos = getPos(dist1, dist2, 1.3, 1.6);
+        telemetry.addData("1", String.format("%.2f", dist1));
+        telemetry.addData("2", String.format("%.2f", dist2));
         telemetry.addData("X", String.format("%.2f", pos[0]));
         telemetry.addData("Y", String.format("%.2f", pos[1]));
     }
