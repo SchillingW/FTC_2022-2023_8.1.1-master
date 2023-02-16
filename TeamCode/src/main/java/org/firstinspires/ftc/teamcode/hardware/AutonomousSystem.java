@@ -38,6 +38,12 @@ public class AutonomousSystem {
         return rightMove;
     }
 
+    // return true if previously checked move just finished
+    public boolean end() {
+
+        return justInc && countMove == currMove;
+    }
+
     public void update() {
 
         // reset move order counts

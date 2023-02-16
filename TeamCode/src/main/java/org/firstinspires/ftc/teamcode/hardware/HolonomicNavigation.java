@@ -31,6 +31,12 @@ public class HolonomicNavigation extends AutonomousSystem {
     public double targetY;
     public double targetRot;
 
+    // keep track of last calls
+    public double lastTargetLocalX;
+    public double lastTargetLocalY;
+    public double lastTargetGlobalX;
+    public double lastTargetGlobalY;
+
     // initialize device
     public HolonomicNavigation(HolonomicDrive drive, HolonomicOdometry odometry,
                                InterpolateClamp approach,
@@ -118,6 +124,11 @@ public class HolonomicNavigation extends AutonomousSystem {
         targetX = x;
         targetY = y;
         targetRot = rot;
+
+        lastTargetLocalX = 0;
+        lastTargetLocalY = 0;
+        lastTargetGlobalX = x;
+        lastTargetGlobalY = y;
     }
 
     // set target position such that local point on bot lies over global point
@@ -137,6 +148,50 @@ public class HolonomicNavigation extends AutonomousSystem {
                 VectorRotate.anchoredX(localX, localY, globalX, imagineRot),
                 VectorRotate.anchoredY(localX, localY, globalY, imagineRot),
                 actualRot);
+
+        lastTargetLocalX = localX;
+        lastTargetLocalY = localY;
+        lastTargetGlobalX = globalX;
+        lastTargetGlobalY = globalY;
+    }
+
+    // set target position such that local point on bot lies over global point
+    public void setTarget(double localX, double localY,
+                          double globalX, double globalY,
+                          double rot, ConeDistLocalizer coneLoc) {
+
+        coneLoc.update(odometry.currX, odometry.currY, odometry.currRot);
+
+        double actualX = globalX;
+        double actualY = globalY;
+
+        if (coneLoc.exist) {
+            actualX = coneLoc.locX;
+            actualY = coneLoc.locY;
+        }
+
+        setTarget(localX, localY, actualX, actualY, rot);
+
+        lastTargetGlobalX = globalX;
+        lastTargetGlobalY = globalY;
+    }
+
+    // set target position such that local point on bot lies over global point
+    public void setTarget(double rot, ConeDistLocalizer coneLoc) {
+
+        setTarget(lastTargetLocalX, lastTargetLocalY, lastTargetGlobalX, lastTargetGlobalY, rot, coneLoc);
+    }
+
+    // relocalize bot based on cone position
+    public void relocalize() {
+
+        odometry.currX = VectorRotate.anchoredX(
+                lastTargetLocalX, lastTargetLocalY,
+                lastTargetGlobalX, odometry.currRot);
+
+        odometry.currY = VectorRotate.anchoredY(
+                lastTargetLocalX, lastTargetLocalY,
+                lastTargetGlobalY, odometry.currRot);
     }
 
     // track device position
