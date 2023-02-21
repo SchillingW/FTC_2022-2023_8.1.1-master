@@ -31,7 +31,7 @@ public class Volta extends DriveSlide {
 
     // local position of claw relative to bot center
     public static final double clawX = 0;
-    public static final double clawY = 10;
+    public static final double clawY = 10.5;
 
     // frame size
     public static final double frameX = 12.3;
@@ -91,12 +91,12 @@ public class Volta extends DriveSlide {
         // approach speed gradient
         InterpolateClamp approach = new InterpolateClamp(
                 0, 18,
-                0.15, 0.6);
+                0.15, 0.75);
 
         // initialize navigation device and add as autonomous subsystem
         nav = new HolonomicNavigation(
                 drive, odometry, approach,
-                1, Math.PI / 96,
+                0.75, Math.PI / 96,
                 1, 0.8, 48 / Math.PI,
                 tele);
         subsystem.set(0, nav);
