@@ -52,6 +52,12 @@ public class BasicDrive extends OpMode {
         if (gamepad2.left_bumper) bot.claw.open();
         if (gamepad2.right_bumper) bot.claw.close();
 
+        // localize cone
+        bot.coneLoc.update(
+                bot.nav.odometry.currX,
+                bot.nav.odometry.currY,
+                bot.nav.odometry.currRot);
+
         // get analog input
         double x = gamepad1.left_stick_x;
         double y = -gamepad1.left_stick_y;
@@ -65,8 +71,13 @@ public class BasicDrive extends OpMode {
         slide *= Math.abs(slide);
 
         // run drive train by input
-        bot.nav.track();
-        bot.nav.drive.run(x * speed, y * speed, rot * turnSpeed);
+        if (gamepad1.left_bumper && bot.coneLoc.exist) {
+            bot.nav.setTarget(Volta.clawX, Volta.clawY, bot.coneLoc.locX, bot.coneLoc.locY, bot.nav.odometry.currRot);
+            bot.nav.update();
+        } else {
+            bot.nav.track();
+            bot.nav.drive.run(x * speed, y * speed, rot * turnSpeed);
+        }
 
         // run linear slide to target
         if (slide != 0) {
@@ -77,12 +88,6 @@ public class BasicDrive extends OpMode {
         } else {
             bot.slide.run(bot.slide.holdSpeed);
         }
-
-        // localize cone
-        bot.coneLoc.update(
-                bot.nav.odometry.currX,
-                bot.nav.odometry.currY,
-                bot.nav.odometry.currRot);
 
         // telemetry debugging
         telemetry.addData("speed", speed);

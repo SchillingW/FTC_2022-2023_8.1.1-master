@@ -90,8 +90,8 @@ public class Volta extends DriveSlide {
 
         // approach speed gradient
         InterpolateClamp approach = new InterpolateClamp(
-                0, 18,
-                0.15, 0.75);
+                3, 18,
+                0.2, 0.7);
 
         // initialize navigation device and add as autonomous subsystem
         nav = new HolonomicNavigation(
