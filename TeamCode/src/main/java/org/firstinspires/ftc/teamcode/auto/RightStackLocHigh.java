@@ -78,12 +78,12 @@ public class RightStackLocHigh extends OpMode {
             // navigate to stack
 
             if (bot.next(bot.nav)) {
-                bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 1.5) * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize - 2, -Math.PI / 2);
+                bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 1.5) * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize - 1, -Math.PI / 2);
             }
 
             if (bot.next(bot.nav, bot.slide)) {
                 bot.nav.approach = Volta.approachStack;
-                bot.nav.setTarget(Volta.clawX, Volta.clawY, FieldDimensions.stackX(1) + 1, FieldDimensions.stackY(0) + 2, -Math.PI / 2, bot.coneLoc);
+                bot.nav.setTarget(Volta.clawX, Volta.clawY, FieldDimensions.stackX(1) + 1, FieldDimensions.stackY(0), -Math.PI / 2, bot.coneLoc);
                 bot.slide.setTarget(FieldDimensions.stackHeight(6 - i));
             }
 
