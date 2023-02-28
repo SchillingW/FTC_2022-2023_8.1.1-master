@@ -31,7 +31,7 @@ public class Volta extends DriveSlide {
 
     // local position of claw relative to bot center
     public static final double clawX = 0;
-    public static final double clawY = 10;
+    public static final double clawY = 9.5;
 
     // frame size
     public static final double frameX = 12.3;
