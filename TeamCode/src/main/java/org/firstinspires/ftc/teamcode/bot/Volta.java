@@ -94,15 +94,15 @@ public class Volta extends DriveSlide {
                 tele);
 
         // approach speed gradient
-        InterpolateClamp approachFast = new InterpolateClamp(
+        approachFast = new InterpolateClamp(
                 0, 18,
                 0.2, 0.7);
 
-        InterpolateClamp approachStack = new InterpolateClamp(
+        approachStack = new InterpolateClamp(
                 3, 18,
                 0.15, 0.5);
 
-        InterpolateClamp approachPole = new InterpolateClamp(
+        approachPole = new InterpolateClamp(
                 3, 18,
                 0.2, 0.6);
 
