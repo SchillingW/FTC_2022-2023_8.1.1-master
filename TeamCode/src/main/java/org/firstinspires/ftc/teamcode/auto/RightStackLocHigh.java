@@ -52,7 +52,7 @@ public class RightStackLocHigh extends OpMode {
         }
 
         if (bot.next(bot.nav, bot.slide)) {
-            bot.nav.setTarget(Volta.clawX, Volta.clawY, (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize, 3 * FieldDimensions.cellSize, 0);
+            bot.nav.setTarget(Volta.clawX, Volta.clawY, (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize, 3 * FieldDimensions.cellSize + 2, 0);
             bot.slide.setTarget(FieldDimensions.highGoal + Volta.aboveSlide);
         }
 
@@ -76,6 +76,10 @@ public class RightStackLocHigh extends OpMode {
         for (int i = 1; i <= 3; i++) {
 
             // navigate to stack
+
+            if (bot.next(bot.nav)) {
+                bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 1.5) * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize, -Math.PI / 2);
+            }
 
             if (bot.next(bot.nav, bot.slide)) {
                 bot.nav.approach = Volta.approachStack;
