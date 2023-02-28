@@ -52,7 +52,7 @@ public class RightStackLocHigh extends OpMode {
         }
 
         if (bot.next(bot.nav, bot.slide)) {
-            bot.nav.setTarget(Volta.clawX, Volta.clawY, (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize, 3 * FieldDimensions.cellSize + 2, 0);
+            bot.nav.setTarget(Volta.clawX, Volta.clawY, (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize, 3 * FieldDimensions.cellSize, 0);
             bot.slide.setTarget(FieldDimensions.highGoal + Volta.aboveSlide);
         }
 
