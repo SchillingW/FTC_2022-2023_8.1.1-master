@@ -47,7 +47,7 @@ public class RightStackLocMed extends OpMode {
         // navigate to high goal
 
         if (bot.next(bot.nav)) {
-            bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 1.5) * FieldDimensions.cellSize, 2.75 * FieldDimensions.cellSize, -Math.PI);
+            bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 1.5) * FieldDimensions.cellSize, 2.75 * FieldDimensions.cellSize, 0);
             bot.slide.setTarget(Volta.restSlide + Volta.aboveSlide);
         }
 

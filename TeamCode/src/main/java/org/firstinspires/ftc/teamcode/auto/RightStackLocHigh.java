@@ -106,6 +106,10 @@ public class RightStackLocHigh extends OpMode {
 
             // navigate to high goal
 
+            if (bot.next(bot.nav)) {
+                bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 1.5) * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize, -Math.PI / 2);
+            }
+
             if (bot.next(bot.nav, bot.slide)) {
                 bot.nav.approach = Volta.approachPole;
                 bot.nav.setTarget(Volta.clawX, Volta.clawY, (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize, 3 * FieldDimensions.cellSize, 0, bot.coneLoc);
