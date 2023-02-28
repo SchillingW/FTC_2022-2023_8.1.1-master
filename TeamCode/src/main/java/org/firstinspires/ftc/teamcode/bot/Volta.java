@@ -49,7 +49,7 @@ public class Volta extends DriveSlide {
     // delay times
     public static final double grabWait = 0.25;
     public static final double dropBuffer = 0.125;
-    public static final double alignTime = 0.5;
+    public static final double alignTime = 0.25;
 
     // approach patterns
     public static InterpolateClamp approachFast;
@@ -95,12 +95,12 @@ public class Volta extends DriveSlide {
 
         // approach speed gradient
         approachFast = new InterpolateClamp(
-                0, 18,
+                0, 24,
                 0.2, 0.7);
 
         approachStack = new InterpolateClamp(
                 3, 18,
-                0.15, 0.5);
+                0.2, 0.6);
 
         approachPole = new InterpolateClamp(
                 3, 18,
@@ -110,7 +110,7 @@ public class Volta extends DriveSlide {
         nav = new HolonomicNavigation(
                 drive, odometry, approachFast,
                 0.75, Math.PI / 96,
-                1, 0.8, 48 / Math.PI,
+                1, 0.8, 72 / Math.PI,
                 tele);
         subsystem.set(0, nav);
 
