@@ -51,6 +51,11 @@ public class Volta extends DriveSlide {
     public static final double dropBuffer = 0.125;
     public static final double alignTime = 0.5;
 
+    // approach patterns
+    public static InterpolateClamp approachFast;
+    public static InterpolateClamp approachStack;
+    public static InterpolateClamp approachPole;
+
     // initialize bot
     public Volta(double startX, double startY, double startRot,
                  HardwareMap map, Telemetry tele) {
@@ -89,13 +94,21 @@ public class Volta extends DriveSlide {
                 tele);
 
         // approach speed gradient
-        InterpolateClamp approach = new InterpolateClamp(
-                3, 18,
+        InterpolateClamp approachFast = new InterpolateClamp(
+                0, 18,
                 0.2, 0.7);
+
+        InterpolateClamp approachStack = new InterpolateClamp(
+                3, 18,
+                0.15, 0.5);
+
+        InterpolateClamp approachPole = new InterpolateClamp(
+                3, 18,
+                0.2, 0.6);
 
         // initialize navigation device and add as autonomous subsystem
         nav = new HolonomicNavigation(
-                drive, odometry, approach,
+                drive, odometry, approachFast,
                 0.75, Math.PI / 96,
                 1, 0.8, 48 / Math.PI,
                 tele);

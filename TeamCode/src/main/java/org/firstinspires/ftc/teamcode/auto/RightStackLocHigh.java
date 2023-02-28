@@ -4,12 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.bot.Volta;
-import org.firstinspires.ftc.teamcode.hardware.VisionDevice;
 import org.firstinspires.ftc.teamcode.util.FieldDimensions;
 
 // cycle cones from stack on high goal
-@Autonomous(name="RightStackLocalized", group="LeaguePrep")
-public class RightStackLocalized extends OpMode {
+@Autonomous(name="RightStackLocHigh", group="LeaguePrep")
+public class RightStackLocHigh extends OpMode {
 
     // declare bot
     public Volta bot;
@@ -78,12 +77,8 @@ public class RightStackLocalized extends OpMode {
 
             // navigate to stack
 
-            if (bot.next(bot.nav)) {
-                bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize, -Math.PI / 2);
-                bot.slide.setTarget(Volta.restSlide);
-            }
-
             if (bot.next(bot.nav, bot.slide)) {
+                bot.nav.approach = Volta.approachStack;
                 bot.nav.setTarget(Volta.clawX, Volta.clawY, FieldDimensions.stackX(1) - 1.5, FieldDimensions.stackY(0), -Math.PI / 2, bot.coneLoc);
                 bot.slide.setTarget(FieldDimensions.stackHeight(6 - i));
             }
@@ -94,6 +89,7 @@ public class RightStackLocalized extends OpMode {
             }
 
             if (bot.end()) {
+                bot.nav.approach = Volta.approachFast;
                 bot.nav.relocalize();
             }
 
@@ -110,11 +106,8 @@ public class RightStackLocalized extends OpMode {
 
             // navigate to high goal
 
-            if (bot.next(bot.nav)) {
-                bot.nav.setTarget(Volta.clawX, Volta.clawY, (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize, 3 * FieldDimensions.cellSize, 0, -Math.PI / 2);
-            }
-
             if (bot.next(bot.nav, bot.slide)) {
+                bot.nav.approach = Volta.approachPole;
                 bot.nav.setTarget(Volta.clawX, Volta.clawY, (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize, 3 * FieldDimensions.cellSize, 0, bot.coneLoc);
                 bot.slide.setTarget(FieldDimensions.highGoal + Volta.aboveSlide);
             }
@@ -125,6 +118,7 @@ public class RightStackLocalized extends OpMode {
             }
 
             if (bot.end()) {
+                bot.nav.approach = Volta.approachFast;
                 bot.nav.relocalize();
             }
 
