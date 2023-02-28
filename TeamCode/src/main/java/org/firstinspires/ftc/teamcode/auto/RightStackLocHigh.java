@@ -18,7 +18,7 @@ public class RightStackLocHigh extends OpMode {
 
         // initialize bot
         bot = new Volta(
-                (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize + FieldDimensions.cellMesh / 2 + Volta.wheelWidth + Volta.frameX / 2 + 1.8,
+                (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize + FieldDimensions.cellMesh / 2 + Volta.wheelWidth + Volta.frameX / 2 + 4,
                 FieldDimensions.cellMesh / 2 + Volta.frameY / 2,
                 0,
                 hardwareMap, telemetry);
@@ -47,7 +47,7 @@ public class RightStackLocHigh extends OpMode {
         // navigate to high goal
 
         if (bot.next(bot.nav)) {
-            bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 1.5) * FieldDimensions.cellSize + 2, 2.75 * FieldDimensions.cellSize, 0);
+            bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 1.5) * FieldDimensions.cellSize, 2.75 * FieldDimensions.cellSize, 0);
             bot.slide.setTarget(Volta.restSlide + Volta.aboveSlide);
         }
 
@@ -83,7 +83,7 @@ public class RightStackLocHigh extends OpMode {
 
             if (bot.next(bot.nav, bot.slide)) {
                 bot.nav.approach = Volta.approachStack;
-                bot.nav.setTarget(Volta.clawX, Volta.clawY, FieldDimensions.stackX(1) - 1, FieldDimensions.stackY(0) - 2, -Math.PI / 2, bot.coneLoc);
+                bot.nav.setTarget(Volta.clawX, Volta.clawY, FieldDimensions.stackX(1), FieldDimensions.stackY(0) - 2, -Math.PI / 2, bot.coneLoc);
                 bot.slide.setTarget(FieldDimensions.stackHeight(6 - i));
             }
 
