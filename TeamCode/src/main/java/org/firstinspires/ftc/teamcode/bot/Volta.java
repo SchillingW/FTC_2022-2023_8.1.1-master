@@ -49,7 +49,7 @@ public class Volta extends DriveSlide {
     // delay times
     public static final double grabWait = 0.25;
     public static final double dropBuffer = 0.125;
-    public static final double alignTime = 0.25;
+    public static final double alignTime = 0.5;
 
     // approach patterns
     public static InterpolateClamp approachFast;
