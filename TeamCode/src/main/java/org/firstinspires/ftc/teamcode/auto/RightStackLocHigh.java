@@ -111,7 +111,7 @@ public class RightStackLocHigh extends OpMode {
             // navigate to high goal
 
             if (bot.next(bot.nav)) {
-                bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 1.5) * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize - 2, -Math.PI / 2);
+                bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 1.5) * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize - 1, -Math.PI / 2);
             }
 
             if (bot.next(bot.nav, bot.slide)) {

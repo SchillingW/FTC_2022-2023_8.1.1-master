@@ -52,7 +52,7 @@ public class LeftStackLocHigh extends OpMode {
         }
 
         if (bot.next(bot.nav, bot.slide)) {
-            bot.nav.setTarget(Volta.clawX, Volta.clawY, 2 * FieldDimensions.cellSize, 3 * FieldDimensions.cellSize, 0);
+            bot.nav.setTarget(Volta.clawX, Volta.clawY, 2 * FieldDimensions.cellSize, 3 * FieldDimensions.cellSize + 2, 0);
             bot.slide.setTarget(FieldDimensions.highGoal + Volta.aboveSlide);
         }
 
@@ -77,9 +77,13 @@ public class LeftStackLocHigh extends OpMode {
 
             // navigate to stack
 
+            if (bot.next(bot.nav)) {
+                bot.nav.setTarget(0, 0, 1.5 * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize - 1, Math.PI / 2);
+            }
+
             if (bot.next(bot.nav, bot.slide)) {
                 bot.nav.approach = Volta.approachStack;
-                bot.nav.setTarget(Volta.clawX, Volta.clawY, FieldDimensions.stackX(0) + 1.5, FieldDimensions.stackY(0), Math.PI / 2, bot.coneLoc);
+                bot.nav.setTarget(Volta.clawX, Volta.clawY, FieldDimensions.stackX(0) - 1, FieldDimensions.stackY(0), Math.PI / 2, bot.coneLoc);
                 bot.slide.setTarget(FieldDimensions.stackHeight(6 - i));
             }
 
@@ -105,6 +109,10 @@ public class LeftStackLocHigh extends OpMode {
             }
 
             // navigate to high goal
+
+            if (bot.next(bot.nav)) {
+                bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 1.5) * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize - 1, Math.PI / 2);
+            }
 
             if (bot.next(bot.nav, bot.slide)) {
                 bot.nav.approach = Volta.approachPole;
