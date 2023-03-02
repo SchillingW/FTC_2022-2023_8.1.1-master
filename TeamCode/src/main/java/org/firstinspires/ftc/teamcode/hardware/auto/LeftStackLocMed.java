@@ -1,14 +1,14 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.hardware.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.bot.Volta;
-import org.firstinspires.ftc.teamcode.util.FieldDimensions;
+import org.firstinspires.ftc.teamcode.hardware.bot.Volta;
+import org.firstinspires.ftc.teamcode.hardware.util.FieldDimensions;
 
 // cycle cones from stack on high goal
-@Autonomous(name="DISTANCE_40_LEFT", group="LeaguePrep")
-public class LeftStackLocHigh extends OpMode {
+@Autonomous(name="LeftStackLocMed", group="LeaguePrep")
+public class LeftStackLocMed extends OpMode {
 
     // declare bot
     public Volta bot;
@@ -52,7 +52,7 @@ public class LeftStackLocHigh extends OpMode {
         }
 
         if (bot.next(bot.nav, bot.slide)) {
-            bot.nav.setTarget(Volta.clawX, Volta.clawY, 2 * FieldDimensions.cellSize + 1, 3 * FieldDimensions.cellSize + 2, 0);
+            bot.nav.setTarget(Volta.clawX, Volta.clawY, 2 * FieldDimensions.cellSize, 2 * FieldDimensions.cellSize, Math.PI);
             bot.slide.setTarget(FieldDimensions.highGoal + Volta.aboveSlide);
         }
 
@@ -77,13 +77,9 @@ public class LeftStackLocHigh extends OpMode {
 
             // navigate to stack
 
-            if (bot.next(bot.nav)) {
-                bot.nav.setTarget(0, 0, 1.5 * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize - 1, Math.PI / 2);
-            }
-
             if (bot.next(bot.nav, bot.slide)) {
                 bot.nav.approach = Volta.approachStack;
-                bot.nav.setTarget(Volta.clawX, Volta.clawY, FieldDimensions.stackX(0) - 1, FieldDimensions.stackY(0), Math.PI / 2, bot.coneLoc);
+                bot.nav.setTarget(Volta.clawX, Volta.clawY, FieldDimensions.stackX(0) + 1.5, FieldDimensions.stackY(0), Math.PI / 2, bot.coneLoc);
                 bot.slide.setTarget(FieldDimensions.stackHeight(6 - i));
             }
 
@@ -110,18 +106,14 @@ public class LeftStackLocHigh extends OpMode {
 
             // navigate to high goal
 
-            if (bot.next(bot.nav)) {
-                bot.nav.setTarget(0, 0, 1.5 * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize - 1, Math.PI / 2);
-            }
-
             if (bot.next(bot.nav, bot.slide)) {
                 bot.nav.approach = Volta.approachPole;
-                bot.nav.setTarget(Volta.clawX, Volta.clawY, 2 * FieldDimensions.cellSize, 3 * FieldDimensions.cellSize, 0, bot.coneLoc);
+                bot.nav.setTarget(Volta.clawX, Volta.clawY, 2 * FieldDimensions.cellSize, 2 * FieldDimensions.cellSize, Math.PI, bot.coneLoc);
                 bot.slide.setTarget(FieldDimensions.highGoal + Volta.aboveSlide);
             }
 
             if (bot.next(bot.timer)) {
-                bot.nav.setTarget(0, bot.coneLoc);
+                bot.nav.setTarget(Math.PI, bot.coneLoc);
                 bot.timer.setTarget(Volta.alignTime);
             }
 

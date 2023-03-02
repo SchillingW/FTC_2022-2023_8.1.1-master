@@ -1,13 +1,13 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.hardware.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.bot.Volta;
-import org.firstinspires.ftc.teamcode.util.FieldDimensions;
+import org.firstinspires.ftc.teamcode.hardware.bot.Volta;
+import org.firstinspires.ftc.teamcode.hardware.util.FieldDimensions;
 
 // cycle cones from stack on high goal
-@Autonomous(name="DISTANCE_40_LEFT", group="LeaguePrep")
+@Autonomous(name="LeftStackLocHigh", group="LeaguePrep")
 public class LeftStackLocHigh extends OpMode {
 
     // declare bot

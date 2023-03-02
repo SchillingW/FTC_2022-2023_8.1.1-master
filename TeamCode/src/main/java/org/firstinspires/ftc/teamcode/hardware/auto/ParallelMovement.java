@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.hardware.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.bot.Volta;
+import org.firstinspires.ftc.teamcode.hardware.bot.Volta;
 
 // autonomous test for movement in parallel
 @Autonomous(name="ParallelMovement", group="LeaguePrep")

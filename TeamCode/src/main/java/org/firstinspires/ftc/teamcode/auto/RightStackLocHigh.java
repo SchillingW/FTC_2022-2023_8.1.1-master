@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.bot.Volta;
 import org.firstinspires.ftc.teamcode.util.FieldDimensions;
 
 // cycle cones from stack on high goal
-@Autonomous(name="RightStackLocHigh", group="LeaguePrep")
+@Autonomous(name="DISTANCE_40_RIGHT", group="LeaguePrep")
 public class RightStackLocHigh extends OpMode {
 
     // declare bot

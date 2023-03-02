@@ -1,14 +1,14 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.hardware.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.bot.Volta;
-import org.firstinspires.ftc.teamcode.util.FieldDimensions;
+import org.firstinspires.ftc.teamcode.hardware.bot.Volta;
+import org.firstinspires.ftc.teamcode.hardware.util.FieldDimensions;
 
 // cycle cones from stack on high goal
-@Autonomous(name="LeftStackLocMed", group="LeaguePrep")
-public class LeftStackLocMed extends OpMode {
+@Autonomous(name="RightStackLocMed", group="LeaguePrep")
+public class RightStackLocMed extends OpMode {
 
     // declare bot
     public Volta bot;
@@ -18,7 +18,7 @@ public class LeftStackLocMed extends OpMode {
 
         // initialize bot
         bot = new Volta(
-                2 * FieldDimensions.cellSize - FieldDimensions.cellMesh / 2 - Volta.wheelWidth - Volta.frameX / 2 - 1.8,
+                (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize + FieldDimensions.cellMesh / 2 + Volta.wheelWidth + Volta.frameX / 2 + 1.8,
                 FieldDimensions.cellMesh / 2 + Volta.frameY / 2,
                 0,
                 hardwareMap, telemetry);
@@ -47,12 +47,12 @@ public class LeftStackLocMed extends OpMode {
         // navigate to high goal
 
         if (bot.next(bot.nav)) {
-            bot.nav.setTarget(0, 0, 1.5 * FieldDimensions.cellSize, 2.75 * FieldDimensions.cellSize, 0);
+            bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 1.5) * FieldDimensions.cellSize, 2.75 * FieldDimensions.cellSize, 0);
             bot.slide.setTarget(Volta.restSlide + Volta.aboveSlide);
         }
 
         if (bot.next(bot.nav, bot.slide)) {
-            bot.nav.setTarget(Volta.clawX, Volta.clawY, 2 * FieldDimensions.cellSize, 2 * FieldDimensions.cellSize, Math.PI);
+            bot.nav.setTarget(Volta.clawX, Volta.clawY, (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize, 2 * FieldDimensions.cellSize, -Math.PI);
             bot.slide.setTarget(FieldDimensions.highGoal + Volta.aboveSlide);
         }
 
@@ -79,12 +79,12 @@ public class LeftStackLocMed extends OpMode {
 
             if (bot.next(bot.nav, bot.slide)) {
                 bot.nav.approach = Volta.approachStack;
-                bot.nav.setTarget(Volta.clawX, Volta.clawY, FieldDimensions.stackX(0) + 1.5, FieldDimensions.stackY(0), Math.PI / 2, bot.coneLoc);
+                bot.nav.setTarget(Volta.clawX, Volta.clawY, FieldDimensions.stackX(1) - 1.5, FieldDimensions.stackY(0), -Math.PI / 2, bot.coneLoc);
                 bot.slide.setTarget(FieldDimensions.stackHeight(6 - i));
             }
 
             if (bot.next(bot.timer)) {
-                bot.nav.setTarget(Math.PI / 2, bot.coneLoc);
+                bot.nav.setTarget(-Math.PI / 2, bot.coneLoc);
                 bot.timer.setTarget(Volta.alignTime);
             }
 
@@ -108,12 +108,12 @@ public class LeftStackLocMed extends OpMode {
 
             if (bot.next(bot.nav, bot.slide)) {
                 bot.nav.approach = Volta.approachPole;
-                bot.nav.setTarget(Volta.clawX, Volta.clawY, 2 * FieldDimensions.cellSize, 2 * FieldDimensions.cellSize, Math.PI, bot.coneLoc);
+                bot.nav.setTarget(Volta.clawX, Volta.clawY, (FieldDimensions.cellCount - 2) * FieldDimensions.cellSize, 2 * FieldDimensions.cellSize, -Math.PI, bot.coneLoc);
                 bot.slide.setTarget(FieldDimensions.highGoal + Volta.aboveSlide);
             }
 
             if (bot.next(bot.timer)) {
-                bot.nav.setTarget(Math.PI, bot.coneLoc);
+                bot.nav.setTarget(-Math.PI, bot.coneLoc);
                 bot.timer.setTarget(Volta.alignTime);
             }
 
@@ -137,7 +137,7 @@ public class LeftStackLocMed extends OpMode {
         // park
 
         if (bot.next(bot.nav, bot.slide)) {
-            bot.nav.setTarget(0, 0, (0.5 + bot.vision.result) * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize, Math.PI / 2);
+            bot.nav.setTarget(0, 0, (FieldDimensions.cellCount - 2.5 + bot.vision.result) * FieldDimensions.cellSize, 2.5 * FieldDimensions.cellSize, -Math.PI / 2);
             bot.slide.setTarget(Volta.startSlide);
         }
 
