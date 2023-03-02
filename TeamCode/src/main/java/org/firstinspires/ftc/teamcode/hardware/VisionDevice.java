@@ -73,7 +73,7 @@ public class VisionDevice {
 
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraName = map.get(WebcamName.class, "webcam");
+        parameters.cameraName = map.get(WebcamName.class, "Webcam 1");
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
     }
 

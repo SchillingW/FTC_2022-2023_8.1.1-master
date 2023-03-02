@@ -117,7 +117,7 @@ public class Volta extends DriveSlide {
 
 
         // initialize slide motor
-        DcMotor motorSlide = map.get(DcMotor.class, "motorSlide");
+        DcMotor motorSlide = map.get(DcMotor.class, "slide");
 
         // motorSlide records 2.69rot over a 24in displacement
         RotateConvert convertSlide = new RotateConvert(756, 8.922, -1);
@@ -144,7 +144,7 @@ public class Volta extends DriveSlide {
 
 
         // initialize claw servo
-        Servo servoClaw = map.get(Servo.class, "servoClaw");
+        Servo servoClaw = map.get(Servo.class, "claw");
 
         // initialize claw device
         claw = new Claw(servoClaw, 0, 0.5, tele);
