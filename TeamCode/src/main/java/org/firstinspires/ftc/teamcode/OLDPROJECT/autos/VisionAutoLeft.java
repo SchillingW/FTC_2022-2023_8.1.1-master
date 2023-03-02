@@ -26,6 +26,10 @@ public class VisionAutoLeft extends LinearOpMode {
         robot.yDim.cellPLACEMENT = 1;
 
 
+        vision = new VisionDevice(telemetry, hardwareMap);
+        vision.init();
+
+        sleep(1000);
         int result = 0;
         while (!isStarted()) {
             int next = vision.perform(1f / 3f);

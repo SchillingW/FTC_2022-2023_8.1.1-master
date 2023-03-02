@@ -25,7 +25,10 @@ public class VisionAutoRight extends LinearOpMode {
         robot.xDim.cellPLACEMENT = 0;
         robot.yDim.cellPLACEMENT = 4;
 
+        vision = new VisionDevice(telemetry, hardwareMap);
+        vision.init();
 
+        sleep(1000);
         int result = 0;
         while (!isStarted()) {
             int next = vision.perform(1f / 3f);

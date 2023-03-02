@@ -117,8 +117,7 @@ public class LC_AUTO_LEFT extends LinearOpMode {
 
         //PARK
         robot.setConstants(0.85, 0.3, 12, 6);
-        robot.setConstants(0.85, 0.3, 16, 4);
-        robot.reachPointSlide(stack, telemetry, this, linearSlide, linearSlide.stacks[i + 1], false);
+        robot.reachPointSlide(new Pose2d(robot.xDim.toCell(2) - 1.5, robot.yDim.toCell(result), new Rotation2d()), telemetry, this, linearSlide, linearSlide.low, false);
         robot.drive.stop();
     }
 }
