@@ -6,7 +6,7 @@ public class FieldDimensions {
     public double botanchor2clawcenterHARDWARE;
 
     public double cellcorner2botanchorPLACEMENT;
-    public int cellPLACEMENT;
+    public double cellPLACEMENT;
 
     public double cellLength = 23.5;
 

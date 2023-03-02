@@ -39,7 +39,7 @@ public class LC_AUTO_LEFT extends LinearOpMode {
         robot.yDim.cellcorner2botanchorPLACEMENT = 2;
         sensor = hardwareMap.colorSensor.get("sensor");
         robot.xDim.cellPLACEMENT = 0;
-        robot.yDim.cellPLACEMENT = 1;
+        robot.yDim.cellPLACEMENT = 1.111702128;
 
         poleCellDiff = robot.xDim.toPole(1) - robot.xDim.toCell(1) - 1.5;
         high = new Pose2d(robot.xDim.toCell(2) + 1.75, robot.yDim.toPole(1) - 1, new Rotation2d());
