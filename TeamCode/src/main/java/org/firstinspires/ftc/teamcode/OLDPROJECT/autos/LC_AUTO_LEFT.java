@@ -67,9 +67,7 @@ public class LC_AUTO_LEFT extends LinearOpMode {
 
         // CONE GRABBED
         //robot.reachPointSlide(new Pose2d(robot.xDim.toCell(0), robot.yDim.toCell(4), new Rotation2d()), telemetry, this, linearSlide, linearSlide.driveHeight, false);
-        robot.setConstants(0.4, 0.6, 16, 4);
-        robot.reachPointSlideNextPoint(new Pose2d(robot.xDim.toCell(0), robot.yDim.toCell(1) - 2, new Rotation2d()), new Pose2d(robot.xDim.toCell(1.8), robot.yDim.toCell(4) - 2, new Rotation2d()), telemetry, this, linearSlide, linearSlide.high, false);
-        robot.setConstants(0.6, 0.6, 16, 4);
+        robot.setConstants(0.8, 0.6, 16, 4);
         robot.reachPointSlideNextPoint(new Pose2d(robot.xDim.toCell(1.8), robot.yDim.toCell(1) - 2, new Rotation2d()), high, telemetry, this, linearSlide, linearSlide.high, false);
         robot.setConstants(0.6, 0.25, 16, 2);
         robot.reachPointSlide(high, telemetry, this, linearSlide, linearSlide.high, false);
@@ -86,8 +84,8 @@ public class LC_AUTO_LEFT extends LinearOpMode {
 
     public void Cycle(int i, boolean lastCycle, int result)
     {
-        double yPoleOffset = i * 0.85;
-        double xPoleOffset = i * 0.25;
+        double yPoleOffset = i * 0.25;
+        double xPoleOffset = i * 0.5;
         double rotPoleOffset = (i + 1) * 0.65;
         Pose2d newHigh = new Pose2d(high.getX() + xPoleOffset, high.getY() + yPoleOffset, Rotation2d.fromDegrees(0 - rotPoleOffset));
 
@@ -119,16 +117,9 @@ public class LC_AUTO_LEFT extends LinearOpMode {
 
         //PARK
         robot.setConstants(0.85, 0.3, 12, 6);
-        if(result != 2) {
-            robot.reachPointSlide(new Pose2d(robot.xDim.toCell(2) - 1.5, robot.yDim.toCell(result), new Rotation2d()), telemetry, this, linearSlide, linearSlide.low, false);
-            robot.drive.stop();
-        }
-        else
-        {
-            robot.setConstants(0.85, 0.3, 16, 4);
-            robot.reachPointSlide(stack, telemetry, this, linearSlide, linearSlide.stacks[i + 1], false);
-            robot.drive.stop();
-        }
+        robot.setConstants(0.85, 0.3, 16, 4);
+        robot.reachPointSlide(stack, telemetry, this, linearSlide, linearSlide.stacks[i + 1], false);
+        robot.drive.stop();
     }
 }
 
